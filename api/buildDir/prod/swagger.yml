@@ -1,0 +1,11 @@
+swagger:
+    html: '/swagger-ui.html'
+    title: 'MDL'
+    description: 'MDL API Swagger Docs'
+    version: 'MDL v1'
+    termsOfServiceUrl: 'http://localhost:48081'
+    contact-name: "Contact Me"
+    contact-url: "www.example.com"
+    contact-mail: "foo@example.com"
+    license: 'license'
+    licenseUrl: 'http://localhost:48081'

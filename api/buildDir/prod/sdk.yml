@@ -1,0 +1,182 @@
+sdk:
+  app:
+    #블록체인 RCP HOST
+    blockchain-server-domain: http://192.168.0.86:18888
+    #해당 API 서버 HOST
+    api-server-domain: http://10.0.0.135:18081
+    #ReadMode:  true (DID 조회, VC 상태 조회만 가능)
+    read-mod: false
+    #Test Issuer, SP API 사용 여부
+    test-issuer-verify-mode: true
+    ####################################
+
+
+    ##### read-mod: false 경우 세팅 필요 #####
+    #Wallet 파일 세팅
+    keymanager-path: "classpath:/properties/sdk/provide/issuer.wallet"
+    #classpath:config/issuer.wallet
+    keymanager-password: raon12345!
+    issuer-key-id: omni.issuer
+    sp-key-id: zkph2
+    ####################################
+
+
+    #DID 생성을 위한 omnione.ent 블록체인 계정명
+    omnione-ent-account: omnione.ent
+    ####################################
+
+
+    ##### test-issuer-verify-mode: true 경우 세팅 필요 #####
+    ##Issuer 설정
+    # VC 발급 Issuer 블록체인 계정
+    issuer-account: hsm1
+    #Issuer DID 파일 경로
+    issuer-did-path: "classpath:/properties/sdk/provide/zkph1.did"
+
+    #Issuer 발급 VC Type Code
+    default-vc-type-code: driverlicen
+    #VC에 Issuer 서명 추가
+    add-issuer-proof: true
+    #통신구간 ECIES VC암호화 여부
+    vc-encrypt-type: true
+    #VC 발급시 VC_Type에 정의된 개인정보 항목만 추가 여부, true:  정의된 항목만 추가, false:  정의된 항목외 추가 가능
+    issue-vc-type-strict-check: false
+    ####################################
+
+
+    # VC 발급시 백업정보 생성 여부
+    vc-backup: false
+    # vc tx string 생성 여부
+    vc-tx-consignment: false
+    ####################################
+
+
+    ##SP 설정
+    #SP 블록체인 계정
+    sp-account: zkph2
+    #SP DID 파일 경로
+    sp-did-path: "classpath:/properties/sdk/provide/zkph2.did"
+    #SP Service Code
+    default-service-code: spdriver
+    #블록체인을 통한 검증, true:  스마트컨트랙트를 통한 검증, false:  로컬 서버에 검증
+    verify-check-blockchain: false
+    #VC 만료기한 체크 여부
+    verify-check-Expiration-Date: true
+    #######################################################################
+
+
+
+
+    #######################################################################
+    ## mDL 설정
+    #######################################################################
+    ## RSA 암호화 사용 여부
+    rsa-encrypt: true
+    renew-vctype-code: stk
+    #SP RSA keyId
+    sp-rsa-key-id: zkph2.rsa
+    #Admin RSA keyId
+    admin-rsa-key-id: omni.admin.rsa
+    #Admin did path
+    admin-did-path: "classpath:/properties/sdk/provide/admin.did"
+    #file:///C:Users/user/Downloads/86 zkp 0819/86_server/api-server-zkp/config/admin.did
+    #######################################################################
+
+
+
+
+    #######################################################################
+    ## ZKP 설정
+    #######################################################################
+    zkp-enable: true
+    #-----------------------------공통 ↑------------------------------
+    #zkp-init: true
+    #zkp-schema-name: mDL1
+    #zkp-version: 1.0
+    #zkp-tag-name: tag
+    #zkp-attribute-list: ["sex", "address"]
+    #zkp-predicate-list: [{"birth":{"type":"GE","value":"19"}}]
+    #zkp-proof-request-name: mDL
+    #-----------------------------CLI미사용 ↑------------------------------
+    #-----------------------------CLI 사용 ↓------------------------------↑
+    zkp-init: false
+    zkp-schema-id: did:kr:mobileid:2JkRy6hVNxA159a9za4dmwXmfR9K:2:schemaname:1.0
+    zkp-cred-def-id: did:kr:mobileid:2JkRy6hVNxA159a9za4dmwXmfR9K:3:CL:did:kr:mobileid:2JkRy6hVNxA159a9za4dmwXmfR9K:2:schemaname:1.0:tag
+    zkp-schema-name: schemaname
+    zkp-version: 1.0
+    zkp-tag-name: tag
+    zkp-attribute-list: [ "sex", "address" ]
+    zkp-predicate-list: [ { "birth": { "type": "GE","value": "19" } } ]
+    zkp-proof-request-name: mDL
+
+
+    #-----------------------------옵션 설명------------------------------
+    #zkp-init: 				Schmea와 Credential을 API-Server가 직접 만듦 [true / false] Schema와 Credential을 CLI와 Admin-Console로 만들고, properties를 통해 입력받음
+    #zkp-schema-id: 			Admin-Console에서 만든 SchemaID
+    #zkp-cred-def-id: 		CLI에서 만든 Cred_def_ID
+    #zkp-schema-name: 		증명서 이름
+    #zkp-version: 			zkp버전
+    #zkp-tag-name: 			증명서 Sub이름
+    #zkp-attribute-list: 	속성(Claim)
+    #zkp-predicate-list: 	조건값 있는 속성(Claim)
+    #zkp-proof-request-name: 	profile이름
+    #######################################################################
+
+    #######################################################################
+    ## HSM 설정
+    #######################################################################
+    #월렛 종류(DEFAULT, LUNA_HSM_TYPE)
+    keymanager-type: LUNA_HSM_TYPE
+    #HSM slot 번호
+    slot: 0
+    #
+
+    ##SP 설정
+    #Wallet 파일 세팅
+    sp-keymanager-path: /home/omnione/server/sp.wallet
+    sp-keymanager-password: gncho
+    #SP 블록체인 계정 
+    #sp-account:  omni.sp
+    #SP 서명 keyId 
+    #sp-key-id:  omni.sp
+    #SP RSA keyId
+    #sp-rsa-key-id:  omni.sp.rsa
+
+    #SP DID 파일 경로
+    #sp-did-path:  /home/omnione/server/sp.did
+    #SP Service Code
+    sp-service-code: spdriver
+    #false :  로컬 서버에 검증
+    #verify-check-blockchain:  false
+    ##
+    ####################################
+
+    ##### SDK 세팅  #####
+    #상세 로그 사용 여부
+    sdk-detail-log: true
+    #블록체인 조회 캐싱 사용 여부
+    sdk-use-cache: true
+    #라이선스 파일 경로
+    lincense-file-path: "classpath:/properties/sdk/omnione_enterprise_server.rsl"
+    #/home/omnione/server/omnione_enterprise_server.rsl
+    ####################################
+
+    ##### 서버 세팅  #####
+    #blockchain-server-domain   :  http://192.168.0.85:8888
+    #server-domain	          :  http://10.0.0.139:8080
+    ####################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

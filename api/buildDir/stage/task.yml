@@ -1,0 +1,6 @@
+task:
+  schedule-pool-size: 1
+  schedule-thread-name-prefix: '스켸줄러 -'
+  cronJob1: '0 0 03 * * ?'
+  cronJob0: '0 10 * * * *'
+  prefix-tablename: 'log_'

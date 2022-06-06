@@ -1,0 +1,11 @@
+webPage:
+  mpm-page: "/thymeleaf/content/qrmpm/QrMpmPage"
+  cpm-page: "/thymeleaf/content/qrcpm/QrCpmPage"
+  vue-page: "/thymeleaf/content/root/RootPage"
+
+
+
+
+
+
+

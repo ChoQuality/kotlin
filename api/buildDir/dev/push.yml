@@ -1,0 +1,28 @@
+push:
+  mscode: "USP2"
+  type: "MIP-USP-001"
+  server-address: "http://192.168.0.182:39090/oacx/proxy/push/authen/sendvpapi"
+  #"https://psh.mobileid.go.kr:8443/api/sendVPAPI.do"
+  #"http://192.168.0.182:39090/oacx/proxy/push/authen/sendvpapi"
+  #"https://psh.mobileid.go.kr:8443/api/sendVPAPI.do"
+  #"http://push-manager.mdl.komsco.com/api/sendVPAPI.do"
+  #"https://psh.mobileid.go.kr:8443/api/sendVPAPI.do"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

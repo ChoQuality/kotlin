@@ -1,0 +1,5 @@
+webconf:
+    resource-path: "classpath:/static/"
+    thymeleaf-setPrefix: "classpath:/static"
+    thymeleaf-setSuffix: ".html"
+

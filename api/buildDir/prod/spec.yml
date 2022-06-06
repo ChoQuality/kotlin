@@ -1,0 +1,64 @@
+spec:
+  qr: "QR"
+  push: "PUSH"
+  success: "S"
+  error: "E"
+  complete: "C"
+  progress: "P"
+  valid-time: 5
+
+  m120-type: "mip"
+  m120-version: "1.0.0"
+  m120-cmd: "120"
+  m120-mode-proxy: "proxy"
+  m120-mode-direct: "direct"
+  m120-mode-indirect: "indirect"
+
+  m150-type: "mip"
+  m150-version: "1.0.0"
+  m150-cmd: "150"
+  m150-mode-proxy: "proxy"
+  m150-mode-direct: "direct"
+  m150-mode-indirect: "indirect"
+
+  m200-type: "mip"
+  m200-version: "1.0.0"
+  m200-cmd: "200"
+  m200-mode-proxy: "proxy"
+  m200-mode-direct: "direct"
+  m200-mode-indirect: "indirect"
+  m200-host: "http://1.214.64.182:48085"
+  m200-ci: true
+
+  m310-type: "mip"
+  m310-version: "1.0.0"
+  m310-cmd: "310"
+  m310-request: "profile"
+
+  m320-type: "mip"
+  m320-version: "1.0.0"
+  m320-cmd: "320"
+  m320-request: "image"
+
+  m400-type: "mip"
+  m400-version: "1.0.0"
+  m400-cmd: "400"
+  m400-request: "presentation"
+
+  m900-type: "mip"
+  m900-version: "1.0.0"
+  m900-cmd: "900"
+
+
+
+
+
+
+
+
+
+
+
+
+
+

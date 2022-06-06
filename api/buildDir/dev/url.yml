@@ -1,0 +1,27 @@
+url:
+  root: "/"
+  auth: "/auth"
+  test: "/test"
+  test1: "/test1"
+  mip: "/mip"
+  example: "/example"
+  api: "/api"
+  profile: "/profile"
+  image: "/image"
+  vp: "/vp"
+  start: "/start"
+  check: "/check"
+  qr: "/qr"
+  mpm: "/mpm"
+  cpm: "/cpm"
+  app2app: "/app2app"
+  push: "/push"
+
+
+
+
+
+
+
+
+

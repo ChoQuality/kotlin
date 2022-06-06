@@ -1,0 +1,19 @@
+security:
+  ignore-resource-path: "/resources/**"
+  ignore-static-path: "/static/**"
+  ignore-css-path: "/css/**"
+  ignore-js-path: "/js/**"
+  ignore-favicon-path: "/favicon.ico"
+  ignore-webjars-path: "/webjars/**"
+  authorityParameter: "type"
+  authority0: "S"
+  authority1: "N"
+  deleteCookies: "JSESSIONID"
+  usernameParameter: "username"
+  passwordParameter: "password"
+  authParam: "auth"
+  lastAccess: "LASTACCESS"
+  crypto: "BCryptPasswordEncoder"
+  allowedHeaders: "Authorization, TOKEN_ID, X-Requested-With, Content-Type, Content-Length, Cache-Control"
+
+

@@ -1,0 +1,26 @@
+spring:
+  profiles:
+    active: prod
+  messages:
+    basename: properties/html/text
+    encoding: UTF-8
+  config:
+    name: application
+    location: /
+    import:
+      - swagger.yml
+      - server.yml
+      - url.yml
+      - datasource.yml
+      - security.yml
+      - webPage.yml
+      - webConf.yml
+      - task.yml
+      - sp.yml
+      - spec.yml
+      - push.yml
+      - jwt.yml
+      - param.yml
+  jpa:
+    open-in-view: true
+

@@ -1,0 +1,13 @@
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+  scheme: "http"
+  base: localhost
+  port: 48081
+  timeout: 1800
+  error:
+    path: /error
+

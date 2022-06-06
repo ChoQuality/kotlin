@@ -1,0 +1,9 @@
+datasource:
+    path-myBatis-config: "classpath:properties/config/MyBatisConfig.xml"
+    path-myBatis-map: "classpath:properties/mybatis/map/**/*Mapper.xml"
+    path-jpa-config: "classpath:properties/config/JpaConfig.xml"
+    jpa-implementation: "jpa-hibernate"
+    driver-class-name: "org.mariadb.jdbc.Driver"
+    jdbc-url: "jdbc:mariadb://192.168.0.105:3306/mdl"
+    username: "root"
+    password: "oacxpwd@1"
