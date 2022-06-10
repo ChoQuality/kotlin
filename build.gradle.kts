@@ -16,11 +16,15 @@ allprojects {
     apply(plugin = "org.springframework.boot")
 
     dependencies {
-        compileOnly("org.projectlombok:lombok:1.18.18")
+        compileOnly("org.projectlombok:lombok:1.18.24")
         annotationProcessor("org.projectlombok:lombok")
     }
     repositories {
         mavenCentral()
+        maven {
+            url = uri("https://repo.clojars.org")
+            name = "Clojars"
+        }
     }
 }
 
