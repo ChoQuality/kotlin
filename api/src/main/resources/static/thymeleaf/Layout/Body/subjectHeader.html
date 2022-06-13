@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<th:block th:fragment="header-section">
+
+    <div class="wrap">
+        <h1 class="logo"><a href=""><img th:src="@{/images/common/logo.png}" alt="ITS 국가교통정보센터(National Transport Information Center) 로고"></a></h1>
+        <div class="top_box">
+            <h2 class="skip">사용자 안내</h2>
+            <ul class="clearfix">
+                <li>
+                    <strong class="title">최종접속시간:</strong>
+                    <!--/*@thymesVar id="CustomUserDetail" type="com.mqnic.molit.settings.security.CustomUserDetail"*/-->
+                    <span class="cont" th:text="${CustomUserDetail.getCustomMember().getMemberInfo().getLastAccess() == null ? '-':CustomUserDetail.getCustomMember().getMemberInfo().getLastAccess()}"></span>
+                </li>
+                <li>
+                    <!--/*@thymesVar id="CustomUserDetail" type="com.mqnic.molit.settings.security.CustomUserDetail"*/-->
+                    <strong class="name" th:text="${CustomUserDetail.getCustomMember().getMemberInfo().getUsername()}"></strong>
+                </li>
+            </ul>
+            <form style="display:inline" method="post" th:action="@{/logout}">
+                <button class="btn_logout">로그아웃</button>
+            </form>
+        </div>
+
+    </div>
+</th:block>
+</html>
+
+

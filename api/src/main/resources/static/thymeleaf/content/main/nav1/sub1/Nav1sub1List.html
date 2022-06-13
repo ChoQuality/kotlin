@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/Layout/basicPage}">
+<th:block layout:fragment="css-section"></th:block>
+<th:block layout:fragment="js-section">
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/publish/common.js}"></script>
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/common/common.js}"></script>
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/common/commonHeader.js}"></script>
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/common/commonPage.js}"></script>
+
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/content/main/EventListener.js}"></script>
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/content/main/nav1/sub1/ListEventListener.js}"></script>
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/content/main/nav1/sub1/ListOnLoad.js}"></script>
+
+</th:block>
+
+<th:block layout:fragment="header-section">
+    <th:block th:replace="/Layout/Body/basicHeader :: header-section(#{MAIN.NAV1.TEXT})"></th:block>
+</th:block>
+<th:block layout:fragment="nav-section">
+    <th:block th:replace="/Layout/Body/Nav/Nav :: nav-section(#{MAIN.NAV1.TEXT})"></th:block>
+</th:block>
+
+<th:block layout:fragment="content-section">
+    <div id="contents">
+        <h3 th:text="국가번호매핑"></h3>
+        <div class="box">
+            <div class="box_wrap">
+                <div class="bbs_search">
+                    <form>
+                        <fieldset>
+                            <table>
+                                <colgroup>
+                                    <col style="width:10%;">
+                                    <col style="width:90%;">
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th scope="row" th:text="#{PAGE.SEARCH}" style="padding-left: 0px;"></th>
+                                    <td>
+                                        <label for="bbs_search_text" class="skip">검색어 입력</label>
+                                        <input type="text" id="bbs_search_text" class="input_text" placeholder="검색어를 입력하세요."
+                                               th:value="${#strings.toString(param2)}"
+                                        >
+                                        <button type="button" class="submit">조회</button>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </fieldset>
+                    </form>
+                </div>
+                <!-- //bbs_search -->
+            </div>
+        </div>
+        <div class="box">
+            <div class="box_wrap">
+                <table class="bbs_table list">
+                    <colgroup>
+                        <col style="width:10%;">
+                        <col style="width:25%;">
+                        <col style="width:25%;">
+                        <col style="width:20%;">
+                        <col style="width:20%;">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th scope="col" th:text="#{PAGE.TABLE.ETC.COL0}"></th>
+                        <th scope="col" th:text="#{PAGE.TABLE.MAPPING.COL2}"></th>
+                        <th scope="col" th:text="#{PAGE.TABLE.MAPPING.COL1}"></th>
+                        <th scope="col" th:text="#{PAGE.TABLE.MAPPING.COL3}"></th>
+                        <th scope="col" text=""></th>
+                    </tr>
+                    </thead>
+                    <tbody th:if="!${#lists.isEmpty(nav1sub1)}">
+                    <tr th:each="n1s1,index: ${nav1sub1}" th:id="Report_tr_+${n1s1.DEST_PHONE}">
+                        <td >
+                            <span th:text="${index.count}"></span>
+                        </td>
+                        <td class="subject">
+                            <div th:id="Report_tr_col2_+${n1s1.DEST_PHONE}" >
+                                <span th:text="${n1s1.DEST_PHONE}"></span>
+                            </div>
+                        </td>
+                        <td >
+                            <input style="max-width: 150px; text-align: center;" type="text" name="" disable readonly
+                                   th:value="${n1s1.NATION_CODE}"
+                            >
+                        </td>
+                        <td >
+                            <span th:text="${n1s1.SEND_TIME}"></span>
+                        </td>
+                        <td>
+                            <a href="#" class="layer-button reg">수정</a>
+                        </td>
+
+                    </tr>
+                    </tbody>
+                    <tbody th:unless="!${#lists.isEmpty(nav1sub1)}">
+                    <td colspan="5" class="empty"> 등록된 시스템이 없습니다.</td>
+                    </tbody>
+                </table>
+                <!-- paging -->
+                <!--/*@thymesVar id="ymlConf" type="gn.c.proto.setting.conf.yml.YmlConf"*/-->
+                <!--/*@thymesVar id="pagination" type="gn.c.proto.setting.util.Pagination"*/-->
+                <th:block th:replace="/content/main/nav1/sub1/pagination :: pagination-section(
+                           ${pagination.prevIndexPage},${pagination.prevPage},
+                          ${pagination.currentIndex},${pagination.currentPage},
+                          ${pagination.startPage},${pagination.endPage},
+                          ${pagination.nextIndexPage},${pagination.nextPage},
+                          ${pagination.totalIndex},${pagination.pageIndexSize},
+                          ${pagination.pageIndexNumber},
+                          ${pagination.getParam().get('startDate')},
+                          ${pagination.getParam().get('endDate')},
+                          ${#strings.toString(pagination.getParam().get('searchWord')) == ''? '':#strings.toString(pagination.getParam().get('searchWord'))},
+                          'list'
+                          )">
+                </th:block>
+                <!-- //paging -->
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

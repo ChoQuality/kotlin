@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/thymeleaf/Layout/loginPage}">
+
+<th:block layout:fragment="css-section">
+    <link type="text/css" rel="stylesheet" th:href="@{/thymeleaf/css/common/jquery-ui.min.css}" />
+    <link type="text/css" rel="stylesheet" th:href="@{/thymeleaf/css/common/jquery-ui.theme.min.css}" />
+</th:block>
+<th:block layout:fragment="js-section">
+    <script th:src="@{/thymeleaf/js/common/setting.js}"></script>
+    <script th:src="@{/thymeleaf/js/common/common.js}"></script>
+    <script th:src="@{/thymeleaf/js/content/qrcpm/jsQR.js}"></script>
+    <script th:src="@{/thymeleaf/js/content/qrcpm/QrCpmEventListener.js}"></script>
+    <script th:src="@{/thymeleaf/js/content/qrcpm/QrCpmOnLoad.js}"></script>
+</th:block>
+<th:block layout:fragment="menu-section"></th:block>
+<th:block layout:fragment="nav-section"></th:block>
+<th:block layout:fragment="content-section">
+    <hr>
+    <div >
+        <header id="header">
+
+        </header>
+
+        <main id="contents">
+            <section>
+                <th:block th:if="${_csrf} == null">
+                    <form method="post" th:action="${contextURL}">
+                </th:block>
+
+                <th:block th:unless="${_csrf} == null">
+                    <form method="post" th:action="${contextURL}" enctype="multipart/form-data">
+                </th:block>
+
+
+                   <!-- <meta name="_csrf" th:content="${_csrf} == null?'':${_csrf.token}"/>
+                    <meta name="_csrf_header" th:content="${_csrf} == null?'':${_csrf.headerName}"/>-->
+                    <fieldset>
+                        <legend>로그인</legend>
+                        <div    style="text-align: center"
+                                th:if="${auth == ''?false:true}">
+                                    <span style="color: red"
+                                          th:text="${auth}"
+                                    >
+                                    </span>
+                        </div>
+                        <div class="custom_contents_box">
+
+                            <h1 style="margin-bottom: 10px;font-size: large;text-align: center; font-family:'Malgun Gothic';">테스트 화면</h1>
+                            <h1 style="margin-bottom: 10px;font-size: large;text-align: center; font-family:'Malgun Gothic';" th:text=" 'host:: ' +${host}"></h1>
+                            <div class="cont_box">
+                                <div id="loadingMessage">
+                                    🎥 비디오 스트림에 액세스 할 수 없습니다<br />웹캠이 활성화되어 있는지 확인하십시오
+                                </div>
+                                <canvas id ="customQrCpm"> </canvas>
+                                <button type="button" class="btn ml-0" id="qrResResultBtn">응답 상태 확인</button>
+                                <h1 class="box-tit">QR 스캔결과뷰</h1>
+                                <div class="box-inner" id="output">
+                                    <div class="box-line" id="outputMessage">QR코드를 카메라에 노출시켜 주세요</div>
+                                    <div class="box-line" id="outputData"></div>
+                                    <div class="box-line" id="outputData2"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </section>
+        </main>
+    </div>
+</th:block>
+
+
+</html>

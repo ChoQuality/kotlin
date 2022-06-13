@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <th:block th:replace="/Layout/Head/subjectHead :: HEAD"></th:block>
+    <th:block layout:fragment="css-section"></th:block>
+</head>
+
+<body id="main">
+<th:block sec:authorize="isAuthenticated()">
+    <div class="accessibility">
+        <a href="#contents">본문 바로가기</a>
+    </div>
+    <hr/>
+    <header id="header">
+        <th:block th:replace="/Layout/Body/subjectHeader :: header-section"></th:block>
+    </header>
+    <hr/>
+
+    <th:block layout:fragment="menu-section"></th:block>
+    <th:block layout:fragment="nav-section"></th:block>
+    <th:block layout:fragment="content-section"></th:block>
+
+    <!-- The Modal -->
+    <div id="modal-permission-exception" class="modal-pop">
+        <!-- Modal content -->
+        <div class="modal-pop-content text-center">
+            <p>권한이 없습니다. 관리자에게 문의하세요</p>
+        </div>
+    </div>
+
+    <!-- The Modal -->
+    <div id="modal-defaultmenu-exception" class="modal-pop">
+        <!-- Modal content -->
+        <div class="modal-pop-content text-center">
+            <p>기본 메뉴는 수정 하실수 없습니다.</p>
+        </div>
+    </div>
+
+    <!-- The Modal -->
+    <div id="modal-regist-success" class="modal-pop">
+        <!-- Modal content -->
+        <div class="modal-pop-content text-center">
+            <p>메뉴 등록 성공</p>
+        </div>
+    </div>
+
+
+    <div id="modal-regist-subject" class="layer-pop off">
+        <div class="layer-pop-main">
+            <div class="layer-title">
+                <h1>등록하실 URL 정보를 작성해 주세요</h1>
+                <button type="button" class="close">팝업 닫기</button>
+            </div>
+            <div class="layer-content">
+                <label for="bbs_search_text" class="layer-skip" >메뉴명 입력</label>
+                <input type="text" id="bbs_search_text" placeholder="메뉴명을 입력하세요.">
+                <div class="layer-br"></div>
+                <label for="bbs_search_text" class="layer-skip">URL 입력</label>
+                <input type="text" id="bbs_search_text" placeholder="URL을 입력하세요.">
+            </div>
+            <div class="layer-footer">
+                <div class="layer-button_right">
+                    <a href="#" class="layer-button list">취소</a>
+                    <a href="#" class="layer-button modify">확인</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+<th:block layout:fragment="js-section"></th:block>
+</body>
+</html>
+
+
+

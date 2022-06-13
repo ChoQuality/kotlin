@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/Layout/basicPage}">
+<th:block layout:fragment="css-section"></th:block>
+<th:block layout:fragment="js-section">
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/publish/common.js}"></script>
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/common/common.js}"></script>
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/common/commonHeader.js}"></script>
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/common/commonPage.js}"></script>
+
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/content/main/EventListener.js}"></script>
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/content/main/nav0/sub0/ListEventListener.js}"></script>
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/content/main/nav0/sub0/ListOnLoad.js}"></script>
+
+</th:block>
+
+<th:block layout:fragment="header-section">
+    <th:block th:replace="/Layout/Body/basicHeader :: header-section(#{MAIN.NAV0.TEXT})"></th:block>
+</th:block>
+<th:block layout:fragment="nav-section">
+    <th:block th:replace="/Layout/Body/Nav/Nav :: nav-section(#{MAIN.NAV0.TEXT})"></th:block>
+</th:block>
+
+<th:block layout:fragment="content-section">
+    <div id="contents">
+        <h3 th:text="#{MAIN.NAV0.SUB0.TEXT}"></h3>
+        <div class="box">
+            <div class="box_wrap">
+                <div class="bbs_search">
+                    <form>
+                        <fieldset>
+                            <table>
+                                <colgroup>
+                                    <col style="width:10%;">
+                                    <col style="width:90%;">
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th scope="row" th:text="#{PAGE.SEARCH}"></th>
+                                    <td>
+                                        <label for="bbs_search_text" class="skip">검색어 입력</label>
+                                        <input type="text" id="bbs_search_text" class="input_text" placeholder="검색어를 입력하세요.">
+                                        <button type="button" class="submit">조회</button>
+                                    </td>
+                                </tr>
+                                <!--<tr>
+                                    <th scope="row" th:text="#{PAGE.REGDATE}"></th>
+                                    <td>
+                                        <span class="calendar_box">
+                                            <input th:id="Report-calendar-input-start" type="text" title="검색 시작일 선택" readonly="">
+                                        </span>
+                                        ~
+                                        <span class="calendar_box">
+                                            <input th:id="Report-calendar-input-end" type="text" title="검색 마지막일 선택" readonly="">
+                                        </span>
+                                        <button type="button" class="bbs_btn round term" th:text="#{PAGE.TODAY}">
+                                        </button>&lt;!&ndash; 활성화될 경우 클래스 on 추가 &ndash;&gt;
+                                        <button type="button" class="bbs_btn round term" th:text="#{PAGE.MONTH}">
+                                        </button>
+                                        <button type="button" class="bbs_btn round term" th:text="#{PAGE.QUATER}">
+                                        </button>
+                                        <button type="button" class="bbs_btn round term" th:text="#{PAGE.HALF}">
+                                        </button>
+                                        <button type="button" class="bbs_btn round term" th:text="#{PAGE.YEAR}">
+                                        </button>
+                                        <button type="button" class="bbs_btn round term" th:text="#{PAGE.ALL}">
+                                        </button>
+                                        <button type="button" class="submit">조회</button>
+                                    </td>
+                                </tr>-->
+                                </tbody>
+                            </table>
+                        </fieldset>
+                    </form>
+                </div>
+                <!-- //bbs_search -->
+            </div>
+        </div>
+        <div class="box">
+            <div class="box_wrap">
+                <table class="bbs_table list">
+                    <colgroup>
+                        <col style="width:8%;">
+                        <col>
+                        <col style="width:20%;">
+                        <col style="width:18%;">
+                        <col style="width:30%;">
+
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th scope="col" th:text="#{PAGE.TABLE.COL0}"></th>
+                        <th scope="col" th:text="#{PAGE.TABLE.COL1}"></th>
+                        <th scope="col" th:text="#{PAGE.TABLE.COL2}"></th>
+                        <th scope="col" th:text="#{PAGE.TABLE.COL3}"></th>
+                        <th scope="col" th:text="#{PAGE.TABLE.COL4}"></th>
+                        <th scope="col" th:text="#{PAGE.TABLE.COL5}"></th>
+                    </tr>
+                    </thead>
+                    <tbody th:if="!${#lists.isEmpty(nav0sub0)}">
+                    <tr th:each="n0s0,index: ${nav0sub0}" th:id="Report_tr_+${n0s0.MNGR_ID}">
+                        <td >
+                            <span th:text="${index.count}"></span>
+                        </td>
+                        <td class="subject" style="text-align: center !important">
+                            <a th:id="Report_tr_col2_+${n0s0.MNGR_ID}" href="#" >
+                                <span th:text="${n0s0.NM}"></span>
+                            </a>
+                        </td>
+                        <td >
+                            <span th:text="${n0s0.DEPT}"></span>
+                        </td>
+                        <td >
+                            <span th:text="${T(gn.c.proto.setting.function.CommonFunction).telPattern(n0s0.TELNO)}"
+                            ></span>
+                        </td>
+                        <td th:id="Report_tr_col2_+${n0s0.SYS_CODE}">
+                            <span th:text="${n0s0.SYS_NM}"></span>
+                        </td>
+
+                        <th:block th:if="${n0s0.AUTHOR.equals('S')}">
+                            <td >
+                                <span>마스터</span>
+                            </td>
+                        </th:block>
+                        <th:block th:unless="${n0s0.AUTHOR.equals('S')}">
+                            <td >
+                                <span>일반</span>
+                            </td>
+                        </th:block>
+
+                    </tr>
+                    </tbody>
+                    <tbody th:unless="!${#lists.isEmpty(nav0sub0)}">
+                    <td colspan="6" class="empty"> 등록된 회원이 없습니다.</td>
+                    </tbody>
+                </table>
+                <!-- paging -->
+                <!--/*@thymesVar id="ymlConf" type="gn.c.proto.setting.conf.yml.YmlConf"*/-->
+                <!--/*@thymesVar id="pagination" type="gn.c.proto.setting.util.Pagination"*/-->
+                <th:block th:replace="/content/main/nav0/sub0/pagination :: pagination-section(
+                           ${pagination.prevIndexPage},${pagination.prevPage},
+                          ${pagination.currentIndex},${pagination.currentPage},
+                          ${pagination.startPage},${pagination.endPage},
+                          ${pagination.nextIndexPage},${pagination.nextPage},
+                          ${pagination.totalIndex},${pagination.pageIndexSize},
+                          ${pagination.pageIndexNumber},
+                          ${pagination.getParam().get('startDate')},
+                          ${pagination.getParam().get('endDate')},
+                          ${#strings.toString(pagination.getParam().get('searchWord')) == ''? '':#strings.toString(pagination.getParam().get('searchWord'))},
+                          ${ymlConf.getUrl().getRead()}
+                          )">
+                </th:block>
+                <!-- //paging -->
+                <div class="layer-footer">
+                    <div class="layer-button_right">
+                        <a href="#" class="layer-button reg">등록</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

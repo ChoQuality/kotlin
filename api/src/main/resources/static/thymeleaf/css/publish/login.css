@@ -1,0 +1,103 @@
+@charset "utf-8";
+
+@import url('default.css');
+body{position:relative;font-size:14px;line-height:1.6em;color:#555;font-family:'NotoKr','Malgun Gothic','맑은 고딕',Dotum,'돋움',Helvetica,AppleSDGothicNeo,sans-serif;}
+
+/* 본문바로가기  */
+.accessibility{overflow:hidden;position:relative;z-index:1000;width:100%;}
+.accessibility a{display:block;overflow:hidden;height:1px;width:1px;margin:0 -1px -1px 0;font-size:0;line-height:0;text-align:center;}
+.accessibility a:focus,#accessibility a:hover,#accessibility a:active{width:auto;height:20px;margin:0;padding:8px 0 0 15px;background:#20262c;font-size:12px;font-weight:700;line-height:1;color:#fff;}
+
+html,body{height:100%;}
+/*.contents_login{position:relative;min-width:1280px;height:100%;margin:0 auto;}*/
+
+
+#header{position:absolute;right:0;top:50%;width:50%;text-align:center;/*transform:translate(0,-50%);*/}
+#header h1{line-height:0;}
+
+#contents{  position: absolute;
+    top: 50%;
+    width: 50%;
+    left: 25%;
+    transform: translate(0,-50%);}
+#contents .custom_contents_box{text-align:center; padding:35px 40px;border: 1px solid cadetblue;}
+#contents .contents_box{width:600px;margin:0 auto;text-align:center; padding:35px 40px;border: 1px solid cadetblue;}
+#contents .contents_box .title_box{margin-bottom:45px;}
+#contents .contents_box .title_box .contents_login:before{display:inline-block;width:50%;height:20%;content:'';background:url(../images/common/custom_login.png) right 50% no-repeat #b0dfa8;background-size:100% auto;}
+#contents .contents_box .title_box h2{font-size:40px;line-height:42px;color:#333;letter-spacing:-1px;font-weight:600;text-align:center;}
+#contents .contents_box .cont_box{}
+#contents .contents_box .cont_box li{padding:10px 0;margin-bottom:30px;border-bottom:1px solid #ddd;}
+#contents .contents_box .cont_box li input{display:inline-block;width:100%;padding:0 10px;font-family:'Poppins';font-size:18px;line-height:20px;color:#333;border:none;}
+#contents .contents_box .cont_box p{margin-bottom:45px;text-align:left;}
+#contents .contents_box .cont_box p input{display:inline-block;margin:0;vertical-align:-1px;}
+#contents .contents_box .cont_box p label{display:inline-block;font-size:16px;line-height:18px;color:#555;letter-spacing:-1px;vertical-align:middle;}
+#contents .contents_box .cont_box input[type="submit"]{display:inline-block;width:100%;height:65px;padding:0;margin:0;font-family:'Poppins';font-size:22px;line-height:65px;font-weight:600;color:#fff;border:none;border-radius:50px;;background-color:#5c44f2;overflow:hidden;}
+
+#footer{position:absolute;right:0;bottom:0;width:50%;text-align:center;}
+#footer p{padding:0 5% 45px;font-size:16px;line-height:18px;color:#beb4fa;letter-spacing:-1px;}
+
+.auth-layout-wrap {
+    position: relative;
+    top: 30vh;
+    min-height: auto;
+}
+.auth-layout-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-size: cover;
+}
+div {
+    box-sizing: border-box;
+}
+.auth-layout-wrap .auth-content {
+    max-width: 500px;
+    min-width: 400px;
+}
+@media (min-width: 1024px){.auth-layout-wrap .auth-content {width: 500px;max-width: 500px;min-width: 400px;}}
+.card {
+    border: 1px solid #ddd9;
+}
+.o-hidden {
+    overflow: hidden;
+}
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 20px 1px rgb(0 0 0 / 6%), 0 1px 4px rgb(0 0 0 / 8%);
+    border: 0;
+}
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+@media (min-width: 768px){
+    .col-md-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+.login-logo {
+    background-image: url(../images/common/custom_login.png);
+    background-size: 330px;
+    background-repeat: no-repeat;
+    padding: 70px 0;
+}
+*, *::before, *::after {
+    box-sizing: border-box;
+}

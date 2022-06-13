@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/thymeleaf/Layout/rootPage}">
+
+<th:block layout:fragment="css-section">
+    <link type="text/css" rel="stylesheet" th:href="@{/thymeleaf/css/common/jquery-ui.min.css}" />
+    <link type="text/css" rel="stylesheet" th:href="@{/thymeleaf/css/common/jquery-ui.theme.min.css}" />
+</th:block>
+<th:block layout:fragment="js-section">
+    <script th:src="@{/thymeleaf/js/common/setting.js}"></script>
+    <script th:src="@{/thymeleaf/js/common/common.js}"></script>
+    <script th:src="@{/thymeleaf/js/content/root/RootEventListener.js}"></script>
+    <script th:src="@{/thymeleaf/js/content/root/RootOnLoad.js}"></script>
+</th:block>
+<th:block layout:fragment="menu-section"></th:block>
+<th:block layout:fragment="nav-section"></th:block>
+<th:block layout:fragment="content-section">
+    <hr></hr>
+    <div >
+        <header id="header">
+
+        </header>
+
+        <main id="contents">
+            <section>
+                <form method="post" action="">
+                   <!-- <meta name="_csrf" th:content="${_csrf} == null?'':${_csrf.token}"/>
+                    <meta name="_csrf_header" th:content="${_csrf} == null?'':${_csrf.headerName}"/>-->
+                    <fieldset>
+                        <legend>로그인</legend>
+
+                        <div class="contents_box">
+
+                            <h1 style="margin-bottom: 10px;font-size: large;text-align: center; font-family:'Malgun Gothic';">토큰 페이지</h1>
+                            <div class="cont_box">
+
+                                <ul>
+                                    <li>
+                                        <h3 style="margin-bottom: 0px;font-size: medium;text-align: center; font-family:'Malgun Gothic';border: none">토큰</h3>
+                                        <label for="customToken" class="skip">Bearer Token</label>
+                                        <textarea style="width: 100%;height: 75px;"  name="customToken" id="customToken"  readonly="readonly" th:text="${customToken}">
+
+                                        </textarea>
+                                    </li>
+                                    <li>
+                                        <h3 style="margin-bottom: 0px;font-size: medium;text-align: center; font-family:'Malgun Gothic';border: none">키</h3>
+                                        <label for="customKey" class="skip">Key</label>
+                                        <input type="text" name="customKey" id="customKey" th:value="${customKey}" readonly="readonly"></input>
+                                    </li>
+                                    <li>
+                                        <h3 style="margin-bottom: 0px;font-size: medium;text-align: center; font-family:'Malgun Gothic';border: none">벡터</h3>
+                                        <label for="customIV" class="skip">Key</label>
+                                        <input type="text" name="customIV" id="customIV" th:value="${customIV}" readonly="readonly"></input>
+                                    </li>
+
+                                </ul>
+                                <input type="submit" id="customGen" value="토큰 및 키"></input>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </section>
+        </main>
+    </div>
+</th:block>
+
+
+</html>

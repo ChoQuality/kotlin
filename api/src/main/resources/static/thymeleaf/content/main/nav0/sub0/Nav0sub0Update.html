@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/Layout/basicPage}">
+<th:block layout:fragment="css-section"></th:block>
+<th:block layout:fragment="js-section">
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/publish/common.js}"></script>
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/common/common.js}"></script>
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/common/commonHeader.js}"></script>
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/common/commonPage.js}"></script>
+
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/content/main/EventListener.js}"></script>
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/content/main/nav0/sub0/UpdateEventListener.js}"></script>
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/content/main/nav0/sub0/UpdateOnLoad.js}"></script>
+</th:block>
+
+<th:block layout:fragment="header-section">
+    <th:block th:replace="/Layout/Body/basicHeader :: header-section(#{MAIN.NAV0.TEXT})"></th:block>
+</th:block>
+<th:block layout:fragment="nav-section">
+    <th:block th:replace="/Layout/Body/Nav/Nav :: nav-section(#{MAIN.NAV0.TEXT})"></th:block>
+</th:block>
+
+
+<th:block layout:fragment="content-section">
+    <div id="contents">
+
+        <h3>계정 수정</h3>
+
+        <div class="box">
+            <div class="box_wrap">
+                <form name="bbsNttForm" id="" method="post">
+                    <fieldset>
+                        <table class="bbs_table write">
+                            <colgroup>
+                                <col style="width:20%;">
+                                <col style="width:80%;">
+                            </colgroup>
+                            <tbody>
+                            <tr>
+                                <th scope="row"><label for="">업무 담당자 성함</label></th><!-- //필수 항목이 아닐 경우 클래스 y 삭제 -->
+                                <td>
+                                    <!--onkeyup="this.value=this.value.replace(/[^a-zA-Z가-힣]/g,'');"-->
+                                    <input type="text" name="" id=""
+                                         disabled readonly
+                                         th:value="${#strings.toString(nav0sub0.get('NM'))}"
+                                    >
+                                    <div class="checkbox">
+                                        <div th:if="${#strings.toString(nav0sub0.get('AUTHOR')).equals('N')}" >
+                                            <!--/*@thymesVar id="nav0sub0" type="java.util.Map"*/-->
+                                            <span>
+                                                <input type="radio" name="2000" id="expressP0" checked>
+                                                <label class="marker-express-check0 on" for="expressP0">일반</label>
+                                            </span>
+
+                                            <span>
+                                                <input type="radio" name="2000" id="expressP1">
+                                                <label class="marker-express-check0 on" for="expressP1">마스터</label>
+                                            </span>
+                                        </div>
+                                        <div th:unless="${#strings.toString(nav0sub0.get('AUTHOR')).equals('N')}" >
+                                            <!--/*@thymesVar id="nav0sub0" type="java.util.Map"*/-->
+                                            <span>
+                                                <input type="radio" name="2000" id="expressP0" >
+                                                <label class="marker-express-check0 on" for="expressP0">일반</label>
+                                            </span>
+
+                                            <span>
+                                                <input type="radio" name="2000" id="expressP1" checked>
+                                                <label class="marker-express-check0 on" for="expressP1">마스터</label>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <th scope="row"><label for="">업무 담당자 직급</label></th><!-- //필수 항목이 아닐 경우 클래스 y 삭제 -->
+                            <td>
+
+                                <input type="text" name="" id="" onkeyup="this.value=this.value.replace(/[^a-zA-Z가-힣0-9]/g,'');"
+                                       disabled readonly
+                                       th:value="${#strings.toString(nav0sub0.get('CLSF'))}"
+                                >
+                            </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><label for="">부서</label></th>
+                                <td>
+                                    <input type="text" name="" id=""
+                                           disabled readonly
+                                           th:value="${#strings.toString(nav0sub0.get('CLSF'))}"
+                                    >
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><label for="">연락처</label></th>
+                                <td>
+                                    <input type="text" name="" id="" maxlength='11' onkeyup="this.value=this.value.replace(/[^0-9]/g,'');"
+                                           disabled readonly
+                                           th:value="${#strings.toString(nav0sub0.get('TELNO'))}"
+                                    >
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><label for="">아이디</label></th><!-- //필수 항목이 아닐 경우 클래스 y 삭제 -->
+                                <td>
+                                    <input type="text" name="" id="" onkeyup="this.value=this.value.replace(/[^a-zA-Z-_0-9]/g,'');"
+                                           disabled readonly
+                                           th:value="${#strings.toString(nav0sub0.get('MNGR_ID'))}"
+                                    >
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><label for="">비밀번호</label></th>
+                                <td>
+                                    <input type="password" name="" id=""
+                                           disabled readonly
+                                           th:value="${#strings.toString(nav0sub0.get('PASSWORD'))}"
+                                    >
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><label for="">새 비밀번호</label></th>
+                                <td>
+                                    <input type="password" name="" id="password_input" placeholder=" 영문,숫자,특수문자 포함한 8~15 자리 "
+                                           disabled readonly
+                                    >
+                                    <span class="bbs_explan em_red off">비밀번호 확인이 실패되었습니다.</span><!-- 사용 가능한 아이디일 경우 클래스 em_green 추가, 사용중일 경우 클래스 em_red 추가 -->
+                                    <span class="bbs_explan em_green off">비밀번호 확인이 완료되었습니다.</span><!-- 사용 가능한 아이디일 경우 클래스 em_green 추가, 사용중일 경우 클래스 em_red 추가 -->
+                                    <span class="bbs_explan em_blue off">비밀번호 확인을 해주세요.</span><!-- 사용 가능한 아이디일 경우 클래스 em_green 추가, 사용중일 경우 클래스 em_red 추가 -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><label for="">세 비밀번호 확인</label></th>
+                                <td><input type="password" name="" id=""
+                                           disabled readonly
+
+                                ></td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row"><label for="">담당 업무시스템</label></th><!-- //필수 항목이 아닐 경우 클래스 y 삭제 -->
+                                <td>
+                                    <input type="text" name="" id="parent_SYS_name" onkeyup="this.value=this.value.replace(/[^a-zA-Z-_0-9]/g,'');"
+                                           disabled readonly
+                                           th:value="${#strings.toString(nav0sub0.get('SYS_NM'))}"
+                                    >
+                                    <button type="button" class="bbs_btn type06">업무시스템 찾기</button>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row"><label for="">업무시스템코드</label></th><!-- //필수 항목이 아닐 경우 클래스 y 삭제 -->
+                                <td>
+                                    <input type="text" name="" id="parent_SYS_code" th:data-code="${#strings.toString(nav0sub0.get('SYS_CODE'))}"
+                                           disabled readonly
+                                           th:value="${#strings.toString(nav0sub0.get('SYS_CODE'))}"
+                                    >
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row"><label for="">메모</label></th><!-- //필수 항목이 아닐 경우 클래스 y 삭제 -->
+                                <td>
+                                    <input type="text" name="" id=""
+                                           disabled readonly
+                                           th:value="${#strings.toString(nav0sub0.get('MEMO'))}"
+                                    >
+                                </td>
+                            </tr>
+
+
+
+                            </tbody>
+                        </table>
+                        <!-- //bbs_table write -->
+
+                        <div class="layer-footer">
+                            <div class="layer-button_right">
+                                <a href="#" class="marker-reg layer-button list">계정 중지</a>
+                                <a href="#" class="marker-reg layer-button reg update">수정</a>
+                            </div>
+                        </div>
+                        <!-- //bbs_btn_wrap -->
+
+                    </fieldset>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <!-- //contents -->
+
+</th:block>
+</html>

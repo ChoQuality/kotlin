@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/Layout/etcPage}">
+<th:block layout:fragment="css-section"></th:block>
+<th:block layout:fragment="js-section">
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/publish/common.js}"></script>
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/common/common.js}"></script>
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/common/commonPage.js}"></script>
+
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/content/main/nav0/sub0/ListEtcEventListener.js}"></script>
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/content/main/nav0/sub0/ListEtcOnLoad.js}"></script>
+
+</th:block>
+
+<th:block layout:fragment="header-section">
+
+</th:block>
+<th:block layout:fragment="nav-section">
+
+</th:block>
+
+<th:block layout:fragment="content-section">
+    <div id="contents">
+        <h3 th:text="#{MAIN.NAV0.SUB0.ETC.LIST.TEXT}"></h3>
+        <div class="box">
+            <div class="box_wrap">
+                <div class="bbs_search">
+                    <form>
+                        <fieldset>
+                            <table>
+                                <colgroup>
+                                    <col style="width:10%;">
+                                    <col style="width:90%;">
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th scope="row" th:text="#{PAGE.SEARCH}" style="padding-left: 0px;"></th>
+                                    <td>
+                                        <label for="bbs_search_text" class="skip">검색어 입력</label>
+                                        <input type="text" id="bbs_search_text" class="input_text" placeholder="검색어를 입력하세요.">
+                                        <button type="button" class="submit">조회</button>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </fieldset>
+                    </form>
+                </div>
+                <!-- //bbs_search -->
+            </div>
+        </div>
+        <div class="box">
+            <div class="box_wrap">
+                <table class="bbs_table list">
+                    <colgroup>
+                        <col style="width:8%;">
+                        <col>
+                        <col style="width:10%;">
+                        <col style="width:18%;">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th scope="col" th:text="#{PAGE.TABLE.ETC.COL0}"></th>
+                        <th scope="col" th:text="#{PAGE.TABLE.ETC.COL1}"></th>
+                        <th scope="col" th:text="#{PAGE.TABLE.ETC.COL2}"></th>
+                        <th scope="col" th:text="#{PAGE.TABLE.ETC.COL3}"></th>
+                    </tr>
+                    </thead>
+                    <tbody th:if="!${#lists.isEmpty(nav0sub0)}">
+                    <tr th:each="n0s0,index: ${nav0sub0}" th:id="Report_tr_+${n0s0.SYS_CODE}">
+                        <td >
+                            <span th:text="${index.count}"></span>
+                        </td>
+                        <td class="subject">
+                            <a th:id="Report_tr_col2_+${n0s0.SYS_CODE}" href="#" >
+                                <span th:text="${n0s0.SYS_NM}"></span>
+                            </a>
+                        </td>
+                        <td >
+                            <span th:text="${n0s0.SYS_CODE}"></span>
+                        </td>
+                        <td >
+                            <span th:text="${n0s0.SYS_IP}"></span>
+                        </td>
+
+                    </tr>
+                    </tbody>
+                    <tbody th:unless="!${#lists.isEmpty(nav0sub0)}">
+                    <td colspan="6" class="empty"> 등록된 시스템이 없습니다.</td>
+                    </tbody>
+                </table>
+                <!-- paging -->
+                <!--/*@thymesVar id="ymlConf" type="gn.c.proto.setting.conf.yml.YmlConf"*/-->
+                <!--/*@thymesVar id="pagination" type="gn.c.proto.setting.util.Pagination"*/-->
+                <th:block th:replace="/content/main/nav0/sub0/pagination :: pagination-section(
+                           ${pagination.prevIndexPage},${pagination.prevPage},
+                          ${pagination.currentIndex},${pagination.currentPage},
+                          ${pagination.startPage},${pagination.endPage},
+                          ${pagination.nextIndexPage},${pagination.nextPage},
+                          ${pagination.totalIndex},${pagination.pageIndexSize},
+                          ${pagination.pageIndexNumber},
+                          ${pagination.getParam().get('startDate')},
+                          ${pagination.getParam().get('endDate')},
+                          ${#strings.toString(pagination.getParam().get('searchWord')) == ''? '':#strings.toString(pagination.getParam().get('searchWord'))},
+                          'findSYS'
+                          )">
+                </th:block>
+                <!-- //paging -->
+                <div class="layer-footer">
+                    <div class="layer-button_right">
+                        <a href="#" class="layer-button list">선택</a>
+                        <a href="#" class="layer-button reg">신규 등록</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

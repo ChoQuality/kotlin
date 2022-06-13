@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default_layout}">
+<!-- Content Page의 CSS fragment 삽입 -->
+<th:block layout:fragment="css"></th:block>
+<!-- Content Page의 script fragment 삽입 -->
+<th:block layout:fragment="script">
+    <script th:src="@{/js/common/error.js}"></script>
+</th:block>
+<div layout:fragment="content">
+
+    <span th:text="${isLogin}"></span>
+    <div class="errorPage"><span class="errorHead">Error!</span><br/>
+        <p th:text="${'path: ' + path}"></p>
+        <p th:text="${'status: ' + status}"></p>
+        <p th:text="${'timestamp: ' + timestamp}"></p>
+        <p th:text="${'error: ' + error}"></p>
+        <p th:text="${'errors: ' + errors}"></p>
+        <p th:text="${'exception: ' + exception}"></p>
+        <p th:text="${'message: ' + message}"></p>
+        <p th:text="${'trace: ' + trace}"></p></div>
+    <p>잘못된 요청입니다.</p>
+    <p>
+        <button type="button" onclick="history.back()">이전페이지</button>
+        <button type="button" onclick="location.href=location.origin">메인</button>
+    </p>
+</div>
+</html>

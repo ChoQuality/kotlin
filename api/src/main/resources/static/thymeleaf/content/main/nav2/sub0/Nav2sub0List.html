@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/Layout/basicPage}">
+<th:block layout:fragment="css-section"></th:block>
+<th:block layout:fragment="js-section">
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/publish/common.js}"></script>
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/common/common.js}"></script>
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/common/commonHeader.js}"></script>
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/common/commonPage.js}"></script>
+
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/content/main/EventListener.js}"></script>
+    <th:block th:if="${CustomUserDetail.getCustomMember().getMemberInfo().getRoles().get(0).getAuthority().equals(ymlConf.getSecurity().getAuthority0())}">
+        <script charset="UTF-8" type="text/javascript" th:src="@{/js/content/main/nav2/sub0/ListEventListener_S.js}"></script>
+    </th:block>
+    <th:block th:unless="${CustomUserDetail.getCustomMember().getMemberInfo().getRoles().get(0).getAuthority().equals(ymlConf.getSecurity().getAuthority0())}">
+        <script charset="UTF-8" type="text/javascript" th:src="@{/js/content/main/nav2/sub0/ListEventListener_N.js}"></script>
+    </th:block>
+
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/content/main/nav2/sub0/ListOnLoad.js}"></script>
+
+</th:block>
+
+<th:block layout:fragment="header-section">
+    <th:block th:replace="/Layout/Body/basicHeader :: header-section(#{MAIN.NAV2.TEXT})"></th:block>
+</th:block>
+<th:block layout:fragment="nav-section">
+    <th:block th:replace="/Layout/Body/Nav/Nav :: nav-section(#{MAIN.NAV2.TEXT})"></th:block>
+</th:block>
+
+<th:block layout:fragment="content-section">
+    <div id="contents">
+        <h3 th:text="#{MAIN.NAV2.SUB0.TEXT}"></h3>
+        <div class="box" style="margin-bottom: 20px;">
+            <div class="box_wrap" style="padding: 0px 0px;">
+                <div class="bbs_search" style="padding-right: 0">
+                    <form>
+                        <fieldset>
+                            <table>
+                                <colgroup>
+                                    <col style="width:15%;">
+                                    <col >
+                                    <col style="width:18%;">
+                                    <col style="width:15%;">
+                                    <col style="width:15%;">
+                                    <col style="width:10%;">
+                                </colgroup>
+                                <tbody style="text-align: -webkit-right; text-align: center;">
+                                <tr>
+                                    <th scope="row" style="padding-left: 0px; text-align: center;">
+                                        <span> 정보 상세 </span>
+                                    </th>
+                                    <td>
+                                        <span> 업무시스템 </span>
+                                        <label for="time01_01" class="skip">검색어 입력</label>
+                                        <!--/*@thymesVar id="param0" type="java.util.Optional"*/-->
+                                        <select id="time01_01" title="시작시간 선택" class="round" style="width:150px;" >
+                                            <th:block th:if="${param0.isPresent() == true}">
+                                                <th:block th:if="${param3 == true}">
+                                                    <th:block th:if ="${master == true}">
+                                                        <option th:data-seq="All">전체</option>
+                                                    </th:block>
+                                                    <option th:data-seq="${param0.get().getSeq()}"  th:text="${param0.get().getSysNm()}"></option>
+                                                </th:block>
+                                                <th:block th:unless="${param3 == true}">
+                                                    <option th:data-seq="${param0.get().getSeq()}"  th:text="${param0.get().getSysNm()}"></option>
+                                                    <th:block th:if ="${master == true}">
+                                                        <option th:data-seq="All">전체</option>
+                                                    </th:block>
+                                                </th:block>
+                                            </th:block>
+                                            <th:block th:unless="${param0.isPresent() == true}">
+                                                 <th:block th:if="${param3 == true}">
+                                                     <th:block th:if ="${master == true}">
+                                                         <option th:data-seq="All">전체</option>
+                                                     </th:block>
+                                                </th:block>
+                                                <th:block th:unless="${param3 == true}">
+                                                    <option>업무 선택</option>
+                                                    <th:block th:if ="${master == true}">
+                                                        <option th:data-seq="All">전체</option>
+                                                    </th:block>
+                                                </th:block>
+
+                                            </th:block>
+                                            <!--/*@thymesVar id="systemList" type="java.util.List<KmpSystemE>"*/-->
+                                            <option th:each="system,i:${systemList}" th:data-seq="${system.getSeq()}" th:text="${system.getSysNm()}"></option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <span> 연도 </span>
+                                        <label for="time01_02" class="skip">검색어 입력</label>
+                                        <select id="time01_02" title="시작시간 선택" class="round" style="width:120px;" th:value="${param1}">
+                                            <th:block th:if="${param1.isEmpty()}">
+                                                <option>연도</option>
+                                            </th:block>
+                                            <th:block th:unless="${param1.isEmpty()}">
+                                                <option th:text="${param1} +'년'"></option>
+                                            </th:block>
+
+                                            <option th:each="h,i:${yearList}" th:text="${h+ '년'}"></option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <span> 월 </span>
+                                        <label for="time01_03" class="skip">검색어 입력</label>
+                                        <select id="time01_03" title="시작시간 선택" class="round" style="width:50px;" th:value="${param2}">
+                                            <th:block th:if="${param2.isEmpty()}">
+                                                <option>월</option>
+                                            </th:block>
+                                            <th:block th:unless="${param2.isEmpty()}">
+                                                <option th:text="${param2} +'월'"></option>
+                                            </th:block>
+
+                                            <option th:each="h,i:${#numbers.sequence(1,12)}" th:text="${i.index < 9 ? '0'+h + '월' :h + '월'}"></option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <button type="button" style="background-color: mediumseagreen; padding: revert;">Excel 다운</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="submit">조회</button>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </fieldset>
+                    </form>
+                </div>
+                <!-- //bbs_search -->
+            </div>
+        </div>
+        <div class="box">
+            <div class="box_wrap">
+
+                <table class="bbs_table">
+                    <colgroup>
+
+                        <col style="width:5%;"/>
+                        <col style="width:15%;" />
+                        <col style="width:7%;" />
+                        <col style="width:7%;" />
+                        <col style="width:7%;" />
+                        <col style="width:7%;" />
+                        <col style="width:7%;" />
+                        <col style="width:7%;" />
+                        <col style="width:7%;" />
+                        <col style="width:7%;" />
+                        <col style="width:12%;" />
+                        <col style="width:12%;" />
+
+                    </colgroup>
+                    <thead >
+                    <tr>
+                        <th scope="col"colspan="12">
+                            <th:block th:if="${param2.isEmpty()}">
+                                <span>발송 통계</span>
+                            </th:block>
+                            <th:block th:unless="${param2.isEmpty()}">
+                                <span th:text="${param2 +'월 발송 통계'}"></span>
+                            </th:block>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th style="font-size: small;" scope="col" rowspan="1">날짜</th>
+                        <th style="font-size: small;" scope="col" rowspan="1">시스템명</th>
+                        <th style="font-size: small;" scope="col" rowspan="1">SMS 성공(건)</th>
+                        <th style="font-size: small;" scope="col" rowspan="1">SMS 실패(건)</th>
+                        <th style="font-size: small;" scope="col" rowspan="1">LMS 성공(건)</th>
+                        <th style="font-size: small;" scope="col" rowspan="1">LMS 성공(건)</th>
+                        <th style="font-size: small;" scope="col" rowspan="1">MMS 성공(건)</th>
+                        <th style="font-size: small;" scope="col" rowspan="1">MMS 성공(건)</th>
+                        <th style="font-size: small;" scope="col" rowspan="1">알림톡 성공(건)</th>
+                        <th style="font-size: small;" scope="col" rowspan="1">알림톡 실패(건)</th>
+                        <th style="font-size: small;" scope="col" rowspan="1">총합(성공)</th>
+                        <th style="font-size: small;" scope="col" rowspan="1">총합(실패)</th>
+                    </tr>
+
+                    </thead>
+
+                    <th:block th:if="${param0.isPresent() == true}">
+                        <th:block th:if="${param3 == true}">
+
+                        </th:block>
+                        <th:block th:unless="${param3 == true}">
+                            <th:block th:each="i : ${#numbers.sequence(1,param4)}">
+                                <tbody th:data-tr="${i < 9 ? '0'+i : i}" class="text_center"style="font-size: small;">
+                                <tr th:data-seq = "${param0.get().getSeq()}" th:data-code = "${param0.get().getSysCode()}">
+                                    <td class="nav2sub0" th:id="'day_'+${i}" scope="col"rowspan="5">
+                                        <span th:text="${i}+'일'"></span>
+                                    </td>
+                                    <td class="nav2sub0" scope="col" colspan="1" th:text="${param0.get().getSysNm()}"></td>
+                                    <td class="nav2sub0" scope="col" colspan="1">
+                                        <label th:for="'g_SMS_S_'+${param0.get().getSysCode()}" class="skip"></label>
+                                        <input readonly="readonly" class="marker-statistic-sum b" type="number" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" th:id="'g_SMS_S_'+${param0.get().getSysCode()}" style="width:100%;height:40px;" />
+                                    </td>
+                                    <td class="nav2sub0" scope="col" colspan="1">
+                                        <label th:for="'g_SMS_F_'+${param0.get().getSysCode()}" class="skip"></label>
+                                        <input readonly="readonly" class="marker-statistic-sum b" type="number" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" th:id="'g_SMS_F_'+${param0.get().getSysCode()}" style="width:100%;height:40px;" />
+                                    </td>
+                                    <td class="nav2sub0" scope="col" colspan="1">
+                                        <label th:for="'g_LMS_S'+${param0.get().getSysCode()}" class="skip"></label>
+                                        <input readonly="readonly" class="marker-statistic-sum b" type="number" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" th:id="'g_LMS_S'+${param0.get().getSysCode()}" style="width:100%;height:40px;" />
+                                    </td>
+                                    <td class="nav2sub0" scope="col" colspan="1">
+                                        <label th:for="'g_LMS_F'+${param0.get().getSysCode()}" class="skip"></label>
+                                        <input readonly="readonly" class="marker-statistic-sum b" type="number" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" th:id="'g_LMS_F'+${param0.get().getSysCode()}" style="width:100%;height:40px;" />
+                                    </td>
+                                    <td class="nav2sub0" scope="col" colspan="1">
+                                        <label th:for="'g_MMS_S'+${param0.get().getSysCode()}" class="skip"></label>
+                                        <input readonly="readonly" class="marker-statistic-sum b" type="number" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" th:id="'g_MMS_S'+${param0.get().getSysCode()}" style="width:100%;height:40px;" />
+                                    </td>
+                                    <td class="nav2sub0" scope="col" colspan="1">
+                                        <label th:for="'g_MMS_F'+${param0.get().getSysCode()}" class="skip"></label>
+                                        <input readonly="readonly" class="marker-statistic-sum b" type="number" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" th:id="'g_MMS_F'+${param0.get().getSysCode()}" style="width:100%;height:40px;" />
+                                    </td>
+                                    <td class="nav2sub0" scope="col" colspan="1">
+                                        <label th:for="'g_ALI_S'+${param0.get().getSysCode()}" class="skip"></label>
+                                        <input readonly="readonly" class="marker-statistic-sum b" type="number" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" th:id="'g_ALI_S'+${param0.get().getSysCode()}" style="width:100%;height:40px;" />
+                                    </td>
+                                    <td class="nav2sub0" scope="col" colspan="1">
+                                        <label th:for="'g_ALI_F'+${param0.get().getSysCode()}" class="skip"></label>
+                                        <input readonly="readonly" class="marker-statistic-sum b" type="number" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" th:id="'g_ALI_F'+${param0.get().getSysCode()}" style="width:100%;height:40px;" />
+                                    </td>
+                                    <td class="nav2sub0" scope="col" colspan="1">
+                                        <label th:for="'g_SUM_S'+${param0.get().getSysCode()}" class="skip"></label>
+                                        <input readonly="readonly" class="marker-statistic-sum b" type="number" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" th:id="'g_SUM_S'+${param0.get().getSysCode()}" style="width:100%;height:40px;" />
+                                    </td>
+                                    <td class="nav2sub0" scope="col" colspan="1">
+                                        <label th:for="'g_SUM_F'+${param0.get().getSysCode()}" class="skip"></label>
+                                        <input readonly="readonly" class="marker-statistic-sum b" type="number" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" th:id="'g_SUM_F'+${param0.get().getSysCode()}" style="width:100%;height:40px;" />
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </th:block>
+                            <tfoot>
+                            <tr>
+                                <td class ="custom" colspan="2" style="text-align: center;"> 총계</td>
+                                <td class ="custom" ><input readonly="readonly" style="letter-spacing: 1px;padding-right: 10px;width:100%;height:40px;text-align: right;"/></td>
+                                <td class ="custom" ><input readonly="readonly" style="letter-spacing: 1px;padding-right: 10px;width:100%;height:40px;text-align: right;"/></td>
+                                <td class ="custom" ><input readonly="readonly" style="letter-spacing: 1px;padding-right: 10px;width:100%;height:40px;text-align: right;"/></td>
+                                <td class ="custom" ><input readonly="readonly" style="letter-spacing: 1px;padding-right: 10px;width:100%;height:40px;text-align: right;"/></td>
+                                <td class ="custom" ><input readonly="readonly" style="letter-spacing: 1px;padding-right: 10px;width:100%;height:40px;text-align: right;"/></td>
+                                <td class ="custom" ><input readonly="readonly" style="letter-spacing: 1px;padding-right: 10px;width:100%;height:40px;text-align: right;"/></td>
+                                <td class ="custom" ><input readonly="readonly" style="letter-spacing: 1px;padding-right: 10px;width:100%;height:40px;text-align: right;"/></td>
+                                <td class ="custom" ><input readonly="readonly" style="letter-spacing: 1px;padding-right: 10px;width:100%;height:40px;text-align: right;"/></td>
+                                <td class ="custom" ><input readonly="readonly" style="letter-spacing: 1px;padding-right: 10px;width:100%;height:40px;text-align: right;"/></td>
+                                <td class ="custom" ><input readonly="readonly" style="letter-spacing: 1px;padding-right: 10px;width:100%;height:40px;text-align: right;"/></td>
+                            </tr>
+                            </tfoot>
+                        </th:block>
+                    </th:block>
+                    <th:block th:unless="${param0.isPresent() == true}">
+                        <th:block th:if="${param3 == true}">
+                            <th:block th:if="${systemList.size() != 0}">
+                                <th:block th:each="i : ${#numbers.sequence(1,param4)}">
+                                    <tbody
+                                            th:data-tr="${i < 9 ? '0'+i : i}"
+                                            class="text_center"style="font-size: small;"
+                                    >
+
+
+                                    <th:block th:each="system, first:${systemList}">
+                                        <tr th:data-seq = "${system.getSeq()}" th:data-code = "${system.getSysCode()}">
+                                            <th:block th:if="${first.index == 0}">
+                                                <td class="nav2sub0" th:id="'day_'+${i}" scope="col" th:rowspan="${systemList.size() + 1}">
+                                                    <span th:text="${i}+'일'"></span>
+                                                </td>
+                                            </th:block>
+                                            <td class="nav2sub0" scope="col" colspan="1" th:text="${system.getSysNm()}"></td>
+                                            <td class="nav2sub0" scope="col" colspan="1">
+                                                <label th:for="'c_SMS_S_'+${system.getSeq()}" class="skip"></label>
+                                                <input readonly="readonly" class="marker-statistic-sum b" type="number" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" th:id="'c_SMS_S_'+${system.getSeq()}" style="background-color:white; width:100%;height:40px; " />
+                                            </td>
+                                            <td class="nav2sub0" scope="col" colspan="1">
+                                                <label th:for="'c_SMS_F_'+${system.getSeq()}" class="skip"></label>
+                                                <input readonly="readonly" class="marker-statistic-sum b" type="number" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" th:id="'c_SMS_F_'+${system.getSeq()}" style="background-color:white;width:100%;height:40px;" />
+                                            </td>
+                                            <td class="nav2sub0" scope="col" colspan="1">
+                                                <label th:for="'c_LMS_S'+${system.getSeq()}" class="skip"></label>
+                                                <input readonly="readonly" class="marker-statistic-sum b" type="number" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" th:id="'c_LMS_S'+${system.getSeq()}" style="background-color:white;width:100%;height:40px;" />
+                                            </td>
+                                            <td class="nav2sub0" scope="col" colspan="1">
+                                                <label th:for="'c_LMS_F'+${system.getSeq()}" class="skip"></label>
+                                                <input readonly="readonly" class="marker-statistic-sum b" type="number" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" th:id="'c_LMS_F'+${system.getSeq()}" style="background-color:white;width:100%;height:40px;" />
+                                            </td>
+                                            <td class="nav2sub0" scope="col" colspan="1">
+                                                <label th:for="'c_MMS_S'+${system.getSeq()}" class="skip"></label>
+                                                <input readonly="readonly" class="marker-statistic-sum b" type="number" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" th:id="'c_MMS_S'+${system.getSeq()}" style="background-color:white;width:100%;height:40px;" />
+                                            </td>
+                                            <td class="nav2sub0" scope="col" colspan="1">
+                                                <label th:for="'c_MMS_F'+${system.getSeq()}" class="skip"></label>
+                                                <input readonly="readonly" class="marker-statistic-sum b" type="number" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" th:id="'c_MMS_F'+${system.getSeq()}" style="background-color:white;width:100%;height:40px;" />
+                                            </td>
+                                            <td class="nav2sub0" scope="col" colspan="1">
+                                                <label th:for="'c_ALI_S'+${system.getSeq()}" class="skip"></label>
+                                                <input readonly="readonly" class="marker-statistic-sum b" type="number" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" th:id="'c_ALI_S'+${system.getSeq()}" style="background-color:white;width:100%;height:40px;" />
+                                            </td>
+                                            <td class="nav2sub0" scope="col" colspan="1">
+                                                <label th:for="'c_ALI_F'+${system.getSeq()}" class="skip"></label>
+                                                <input readonly="readonly" class="marker-statistic-sum b" type="number" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" th:id="'c_ALI_F'+${system.getSeq()}" style="background-color:white;width:100%;height:40px;" />
+                                            </td>
+                                            <td class="nav2sub0" scope="col" colspan="1">
+                                                <label th:for="'c_SUM_S'+${system.getSeq()}" class="skip"></label>
+                                                <input readonly="readonly" class="marker-statistic-sum b" type="number" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" th:id="'c_SUM_S'+${system.getSeq()}" style="background-color:white;width:100%;height:40px;" />
+                                            </td>
+                                            <td class="nav2sub0" scope="col" colspan="1">
+                                                <label th:for="'c_SUM_F'+${system.getSeq()}" class="skip"></label>
+                                                <input readonly="readonly" class="marker-statistic-sum b" type="number" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" th:id="'c_SUM_F'+${system.getSeq()}" style="background-color:white;width:100%;height:40px;" />
+                                            </td>
+                                        </tr>
+                                    </th:block>
+                                    <tr data-sum='sumTR'>
+                                        <td class="nav2sub0" scope="col" colspan="1" th:text="소계"></td>
+                                        <td class="nav2sub0" scope="col" colspan="1">
+                                            <label th:for="'c_SMS_S_'+${i}" class="skip"></label>
+                                            <input readonly="readonly" class="marker-statistic-sum b" type="number" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" th:id="'c_SMS_S_'+${i}" style="width:100%;height:40px;" />
+                                        </td>
+                                        <td class="nav2sub0" scope="col" colspan="1">
+                                            <label th:for="'c_SMS_F_'+${i}" class="skip"></label>
+                                            <input readonly="readonly" class="marker-statistic-sum b" type="number" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" th:id="'c_SMS_F_'+${i}" style="width:100%;height:40px;" />
+                                        </td>
+                                        <td class="nav2sub0" scope="col" colspan="1">
+                                            <label th:for="'c_LMS_S'+${i}" class="skip"></label>
+                                            <input readonly="readonly" class="marker-statistic-sum b" type="number" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" th:id="'c_LMS_S'+${i}" style="width:100%;height:40px;" />
+                                        </td>
+                                        <td class="nav2sub0" scope="col" colspan="1">
+                                            <label th:for="'c_LMS_F'+${i}" class="skip"></label>
+                                            <input readonly="readonly" class="marker-statistic-sum b" type="number" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" th:id="'c_LMS_F'+${i}" style="width:100%;height:40px;" />
+                                        </td>
+                                        <td class="nav2sub0" scope="col" colspan="1">
+                                            <label th:for="'c_MMS_S'+${i}" class="skip"></label>
+                                            <input readonly="readonly" class="marker-statistic-sum b" type="number" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" th:id="'c_MMS_S'+${i}" style="width:100%;height:40px;" />
+                                        </td>
+                                        <td class="nav2sub0" scope="col" colspan="1">
+                                            <label th:for="'c_MMS_F'+${i}" class="skip"></label>
+                                            <input readonly="readonly" class="marker-statistic-sum b" type="number" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" th:id="'c_MMS_F'+${i}" style="width:100%;height:40px;" />
+                                        </td>
+                                        <td class="nav2sub0" scope="col" colspan="1">
+                                            <label th:for="'c_ALI_S'+${i}" class="skip"></label>
+                                            <input readonly="readonly" class="marker-statistic-sum b" type="number" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" th:id="'c_ALI_S'+${i}" style="width:100%;height:40px;" />
+                                        </td>
+                                        <td class="nav2sub0" scope="col" colspan="1">
+                                            <label th:for="'c_ALI_F'+${i}" class="skip"></label>
+                                            <input readonly="readonly" class="marker-statistic-sum b" type="number" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" th:id="'c_ALI_F'+${i}" style="width:100%;height:40px;" />
+                                        </td>
+                                        <td class="nav2sub0" scope="col" colspan="1">
+                                            <label th:for="'c_SUM_S'+${i}" class="skip"></label>
+                                            <input readonly="readonly" class="marker-statistic-sum b" type="number" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" th:id="'c_SUM_S'+${i}" style="width:100%;height:40px;" />
+                                        </td>
+                                        <td class="nav2sub0" scope="col" colspan="1">
+                                            <label th:for="'c_SUM_F'+${i}" class="skip"></label>
+                                            <input readonly="readonly" class="marker-statistic-sum b" type="number" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" th:id="'c_SUM_F'+${i}" style="width:100%;height:40px;" />
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </th:block>
+                                <tfoot>
+                                <tr>
+                                    <td class ="custom" colspan="2" style="text-align: center;"> 총계</td>
+                                    <td class ="custom" ><input readonly="readonly" style="letter-spacing: 1px;padding-right: 10px;width:100%;height:40px;text-align: right;"/></td>
+                                    <td class ="custom" ><input readonly="readonly" style="letter-spacing: 1px;padding-right: 10px;width:100%;height:40px;text-align: right;"/></td>
+                                    <td class ="custom" ><input readonly="readonly" style="letter-spacing: 1px;padding-right: 10px;width:100%;height:40px;text-align: right;"/></td>
+                                    <td class ="custom" ><input readonly="readonly" style="letter-spacing: 1px;padding-right: 10px;width:100%;height:40px;text-align: right;"/></td>
+                                    <td class ="custom" ><input readonly="readonly" style="letter-spacing: 1px;padding-right: 10px;width:100%;height:40px;text-align: right;"/></td>
+                                    <td class ="custom" ><input readonly="readonly" style="letter-spacing: 1px;padding-right: 10px;width:100%;height:40px;text-align: right;"/></td>
+                                    <td class ="custom" ><input readonly="readonly" style="letter-spacing: 1px;padding-right: 10px;width:100%;height:40px;text-align: right;"/></td>
+                                    <td class ="custom" ><input readonly="readonly" style="letter-spacing: 1px;padding-right: 10px;width:100%;height:40px;text-align: right;"/></td>
+                                    <td class ="custom" ><input readonly="readonly" style="letter-spacing: 1px;padding-right: 10px;width:100%;height:40px;text-align: right;"/></td>
+                                    <td class ="custom" ><input readonly="readonly" style="letter-spacing: 1px;padding-right: 10px;width:100%;height:40px;text-align: right;"/></td>
+                                </tr>
+                                </tfoot>
+                            </th:block>
+                            <th:block th:unless="${systemList.size() != 0}">
+                                <td colspan="12" class="empty"> 등록된 시스템이 없습니다.</td>
+                            </th:block>
+
+                        </th:block>
+                        <th:block th:unless="${param3 == true}">
+
+                        </th:block>
+                    </th:block>
+
+
+
+                </table>
+
+            </div>
+        </div>
+        <!-- //box -->
+    </div>
+</th:block>
+</html>

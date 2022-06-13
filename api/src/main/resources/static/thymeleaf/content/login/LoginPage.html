@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/thymeleaf/Layout/loginPage}">
+
+<th:block layout:fragment="css-section">
+    <link type="text/css" rel="stylesheet" th:href="@{/thymeleaf/css/common/jquery-ui.min.css}" />
+    <link type="text/css" rel="stylesheet" th:href="@{/thymeleaf/css/common/jquery-ui.theme.min.css}" />
+</th:block>
+<th:block layout:fragment="js-section">
+    <script th:src="@{/thymeleaf/js/common/setting.js}"></script>
+    <script th:src="@{/thymeleaf/js/common/common.js}"></script>
+    <script th:src="@{/thymeleaf/js/content/login/LoginPageEventListener.js}"></script>
+    <script th:src="@{/thymeleaf/js/content/login/LoginPageOnLoad.js}"></script>
+</th:block>
+<th:block layout:fragment="menu-section"></th:block>
+<th:block layout:fragment="nav-section"></th:block>
+<th:block layout:fragment="content-section">
+    <hr>
+    <div >
+        <header id="header">
+
+        </header>
+
+        <main id="contents">
+            <section>
+                <th:block th:if="${_csrf} == null">
+                    <form method="post" th:action="${contextURL}">
+                </th:block>
+
+                <th:block th:unless="${_csrf} == null">
+                    <form method="post" th:action="${contextURL}" enctype="multipart/form-data">
+                </th:block>
+
+
+                   <!-- <meta name="_csrf" th:content="${_csrf} == null?'':${_csrf.token}"/>
+                    <meta name="_csrf_header" th:content="${_csrf} == null?'':${_csrf.headerName}"/>-->
+                    <fieldset>
+                        <legend>로그인</legend>
+                        <div    style="text-align: center"
+                                th:if="${auth == ''?false:true}">
+                                    <span style="color: red"
+                                          th:text="${auth}"
+                                    >
+                                    </span>
+                        </div>
+                        <div class="contents_box">
+
+                            <h1 style="margin-bottom: 10px;font-size: large;text-align: center; font-family:'Malgun Gothic';">테스트 화면</h1>
+                            <h1 style="margin-bottom: 10px;font-size: large;text-align: center; font-family:'Malgun Gothic';" th:text=" 'host:: ' +${host}"></h1>
+                            <div class="cont_box">
+                                <img id = "customQr" >
+
+                                </img>
+                                <ul>
+                                    <li>
+                                        <label for="username" class="skip">ID</label>
+                                        <input type="text" name="username" id="username" placeholder="ID">
+                                    </li>
+                                    <li>
+                                        <label for="password" class="skip">Password</label>
+                                        <input type="password" name="password" id="password" placeholder="Password">
+                                    </li>
+                                </ul>
+                                <p>
+                                    <input type="checkbox" id="save_id">
+                                    <label for="save_id">아이디 저장</label>
+                                </p>
+                                <input type="submit" id="login" value="LOGIN">
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </section>
+        </main>
+    </div>
+</th:block>
+
+
+</html>

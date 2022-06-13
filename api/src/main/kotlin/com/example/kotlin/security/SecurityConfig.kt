@@ -1,11 +1,11 @@
 package com.example.kotlin.security
 
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authorization.AuthenticatedAuthorizationManager
+import org.springframework.security.authorization.AuthorityAuthorizationManager
 import org.springframework.security.authorization.AuthorizationDecision
 import org.springframework.security.authorization.AuthorizationManager
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration
@@ -19,21 +19,17 @@ import org.springframework.security.web.util.matcher.AndRequestMatcher
 import org.springframework.security.web.util.matcher.AnyRequestMatcher
 import org.springframework.security.web.util.matcher.RequestMatcher
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector
-import sun.tools.jconsole.Plotter
 import javax.servlet.http.HttpServletRequest
-import org.springframework.web.context.request.ServletRequestAttributes as ServletRequestAttributes1
 
 @Configuration
 @EnableWebSecurity
 class SecurityConfig(
-    private val http: HttpSecurity
-    , private val authConf: AuthenticationConfiguration
-    , private val servlet : HttpServletRequest
-    , private val introspector : HandlerMappingIntrospector){
+     private val authConf: AuthenticationConfiguration
+    , private val introspect : HandlerMappingIntrospector){
 
     @Autowired
-    constructor(http: HttpSecurity,authConf: AuthenticationConfiguration,servlet : HttpServletRequest)
-            : this(http,authConf,servlet,HandlerMappingIntrospector())
+    constructor(authConf: AuthenticationConfiguration)
+            : this(authConf,HandlerMappingIntrospector())
 
     @Bean
     fun authenticationManager() : AuthenticationManager {
@@ -41,7 +37,7 @@ class SecurityConfig(
     }
 
     @Bean
-    fun webAuthSecurityFilterChain(access : AuthorizationManager<RequestAuthorizationContext>): SecurityFilterChain{
+    fun webAuthSecurityFilterChain(http: HttpSecurity,access : AuthorizationManager<RequestAuthorizationContext>): SecurityFilterChain{
 
         http.authorizeHttpRequests { auth ->
             auth
@@ -51,54 +47,23 @@ class SecurityConfig(
         return http.build()
     }
 
+    @Bean
     fun requestMatcherAuthorizationManager() : AuthorizationManager<RequestAuthorizationContext>{
         var permitAll : RequestMatcher = AndRequestMatcher(
-            MvcRequestMatcher(introspector, "/resources/**")
-            ,MvcRequestMatcher(introspector, "/static/**")
+            MvcRequestMatcher(introspect, "/resources/**")
+            ,MvcRequestMatcher(introspect, "/static/**")
         )
+        var db : RequestMatcher = MvcRequestMatcher(introspect, "/db/**")
         var any : RequestMatcher = AnyRequestMatcher.INSTANCE
 
         var manager :AuthorizationManager<HttpServletRequest> =
             RequestMatcherDelegatingAuthorizationManager.builder()
-                .add(permitAll, AuthorizationManager { authentication, `object` -> AuthorizationDecision(true) })
+                .add(permitAll) { _, _ -> AuthorizationDecision(true) }
+                .add(db, AuthorityAuthorizationManager.hasAnyRole("DBA"))
                 .add(any, AuthenticatedAuthorizationManager())
                 .build()
 
-       var authorizationManager : AuthorizationManager<RequestAuthorizationContext>
-      var attr : ServletRequestAttributes1 = 
-			(ServletRequestAttributes1)RequestContextHolder.currentRequestAttributes();
-
-       authorizationManager =  AuthorizationManager { authentication, a: RequestAuthorizationContext -> return@AuthorizationManager manager.check(/* authentication = */
-           authentication::get) }
-       return
-    }
-
-}
-
-
-
-/*
-        new AndRequestMatcher(
-                new MvcRequestMatcher(introspector, "/resources/**"),
-        new MvcRequestMatcher(introspector, "/signup"),
-        new MvcRequestMatcher(introspector, "/about"));
-*/
-
-        /*RequestMatcher permitAll =
-        new AndRequestMatcher(
-                new MvcRequestMatcher(introspector, "/resources/**"),
-        new MvcRequestMatcher(introspector, "/signup"),
-        new MvcRequestMatcher(introspector, "/about"));*/
-        RequestMatcher admin = new MvcRequestMatcher(introspector, "/admin/**");
-        RequestMatcher db = new MvcRequestMatcher(introspector, "/db/**");
-        RequestMatcher any = AnyRequestMatcher.INSTANCE;
-        AuthorizationManager<HttpRequestServlet> manager = RequestMatcherDelegatingAuthorizationManager.builder()
-            .add(permitAll, (context) -> new AuthorizationDecision(true))
-        .add(admin, AuthorityAuthorizationManager.hasRole("ADMIN"))
-            .add(db, AuthorityAuthorizationManager.hasRole("DBA"))
-            .add(any, new AuthenticatedAuthorizationManager())
-            .build();
-        return (context) -> manager.check(context.getRequest());
+        return AuthorizationManager { authentication, req -> manager.check(authentication,req.request) }
     }
 
 }

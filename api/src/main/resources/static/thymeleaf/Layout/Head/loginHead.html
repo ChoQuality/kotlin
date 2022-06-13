@@ -1,0 +1,25 @@
+<html lagn="ko"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<!--configFragment 선언-->
+<th:block th:fragment="HEAD">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, minimum-scale=1.0, user-scalable=yes">
+    <meta name="title" content="사이트 제목">
+    <meta name="keywords" content="키워드 입력">
+    <meta name="description" content="사이트 상세설명">
+    <meta name="robots" content="DENY"/>
+    <meta name="content-language" content="kr"/>
+    <title th:text="#{LOGIN.TITLE}"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/thymeleaf/css/publish/default.css}">
+    <link rel="stylesheet" th:href="@{/thymeleaf/css/publish/font.css}">
+    <link rel="stylesheet" th:href="@{/thymeleaf/css/publish/login.css}">
+    <meta name="ctx" th:content="${#httpServletRequest.getContextPath()} == '' ? '/': ${#httpServletRequest.getContextPath()}"/>
+    <meta name="_csrf" th:content="${_csrf} == null?'':${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf} == null?'':${_csrf.headerName}"/>
+</th:block>
+
+</html>

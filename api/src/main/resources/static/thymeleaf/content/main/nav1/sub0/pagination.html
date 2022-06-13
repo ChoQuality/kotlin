@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="pagination-section(
+                prevIndexPage,prevPage,
+                currntIndex,currentPage,
+                startPage,endPage,
+                nextIndexPage,nextPage,
+                totalIndex,pageIndexSize,
+                pageIndexNumber,
+                startDate,endDate,searchWord,
+                url
+            )">
+    <div class="custom-pagination">
+        <th:block th:switch="${prevIndexPage}">
+            <a th:case="${T(gn.c.proto.setting.util.State).NOT_SET}"
+               class="prev_end">
+                <span>PI_NOT_SET</span>
+            </a>
+            <a th:case="${T(gn.c.proto.setting.util.State).SET_INDEX}" th:href="@{${url}(
+            page= ( ${startPage} - (${pageIndexSize} * ${pageIndexNumber}) ),
+            index=(${currntIndex} - ${pageIndexNumber}),
+            param0=(${T(gn.c.proto.setting.function.CommonFunction).convertDateFormat(startDate)}),
+            param1=(${T(gn.c.proto.setting.function.CommonFunction).convertDateFormat(endDate)}),
+            param2=(${searchWord})
+            )}"
+               class="prev_end"
+               ><span>PI_SET_INDEX</span>
+            </a>
+            <a th:case="${T(gn.c.proto.setting.util.State).SET_FIRST}" th:href="@{${url}(
+            page=(1),
+            index=(1),
+            param0=(${T(gn.c.proto.setting.function.CommonFunction).convertDateFormat(startDate)}),
+            param1=(${T(gn.c.proto.setting.function.CommonFunction).convertDateFormat(endDate)}),
+            param2=(${searchWord})
+             )}"
+               class="prev_end"
+               ><span>PI_SET_FIRST</span>
+            </a>
+        </th:block>
+
+        <th:block th:switch="${prevPage}">
+            <a th:case="${T(gn.c.proto.setting.util.State).NOT_SET}"
+               class="prev_one">
+                <span>P_NOT_SET</span>
+            </a>
+            <a th:case="${T(gn.c.proto.setting.util.State).SET_PAGE}" th:href="@{${url}(
+                page = (${currentPage} - 1),
+                index= (${currntIndex}),
+                param0=(${T(gn.c.proto.setting.function.CommonFunction).convertDateFormat(startDate)}),
+                param1=(${T(gn.c.proto.setting.function.CommonFunction).convertDateFormat(endDate)}),
+                param2=(${searchWord})
+                 )}"
+               class="prev_one"
+               ><span>P_SET_INDEX</span>
+            </a>
+            <a th:case="${T(gn.c.proto.setting.util.State).SET_INDEX}" th:href="@{${url}(
+                page = (${currentPage} - 1),
+                index=(${currntIndex} -1),
+                param0=(${T(gn.c.proto.setting.function.CommonFunction).convertDateFormat(startDate)}),
+                param1=(${T(gn.c.proto.setting.function.CommonFunction).convertDateFormat(endDate)}),
+                param2=(${searchWord})
+                 )}"
+               class="prev_one"
+               ><span>P_SET_PAGE</span>
+            </a>
+        </th:block>
+
+
+        <th:block th:if="${endPage > 0}" th:each="num : ${#numbers.sequence(startPage, endPage)}">
+            <a  th:href="@{${url}(
+            page = ${num},
+            index= ${currntIndex},
+            param0=(${T(gn.c.proto.setting.function.CommonFunction).convertDateFormat(startDate)}),
+            param1=(${T(gn.c.proto.setting.function.CommonFunction).convertDateFormat(endDate)}),
+            param2=(${searchWord})
+            )}">
+                <span th:text="${''+ num + ''}" th:id="'seq'+${''+ num + ''}"/>
+            </a>
+        </th:block>
+        <th:block th:unless="${endPage > 0}" th:each="num : ${#numbers.sequence(startPage, startPage)}">
+            <a  th:href="@{${url}(
+            page = ${num},
+            index= ${currntIndex},
+            param0=(${T(gn.c.proto.setting.function.CommonFunction).convertDateFormat(startDate)}),
+            param1=(${T(gn.c.proto.setting.function.CommonFunction).convertDateFormat(endDate)}),
+            param2=(${searchWord})
+            )}">
+                <span th:text="${''+ num + ''}" th:id="'seq'+${''+ num + ''}"/>
+            </a>
+        </th:block>
+
+
+        <th:block th:switch="${nextPage}">
+            <a th:case="${T(gn.c.proto.setting.util.State).NOT_SET}"
+               class="next_one"
+                ><span>N_NOT_SET</span>
+            </a>
+            <a th:case="${T(gn.c.proto.setting.util.State).SET_PAGE}" th:href="@{${url}(
+                page = (${currentPage} + 1) ,
+                index= (${currntIndex}),
+                param0=(${T(gn.c.proto.setting.function.CommonFunction).convertDateFormat(startDate)}),
+                param1=(${T(gn.c.proto.setting.function.CommonFunction).convertDateFormat(endDate)}),
+                param2=(${searchWord})
+            )}"
+               class="next_one"
+               ><span >N_SET_PAGE</span>
+            </a>
+            <a th:case="${T(gn.c.proto.setting.util.State).SET_INDEX}" th:href="@{${url}(
+                page = (${currentPage} + 1),
+                index= (${currntIndex} + 1),
+                param0=(${T(gn.c.proto.setting.function.CommonFunction).convertDateFormat(startDate)}),
+                param1=(${T(gn.c.proto.setting.function.CommonFunction).convertDateFormat(endDate)}),
+                param2=(${searchWord})
+            )}"
+               class="next_one"
+               ><span>N_SET_INDEX</span>
+            </a>
+        </th:block>
+
+        <th:block th:switch="${nextIndexPage}">
+            <a th:case="${T(gn.c.proto.setting.util.State).NOT_SET}"
+               class="next_end"
+                ><span>NI_NOT_SET</span>
+            </a>
+            <a th:case="${T(gn.c.proto.setting.util.State).SET_INDEX}" th:href="@{${url}(
+                page= ( ${startPage} + (${pageIndexSize} * ${pageIndexNumber}) ),
+                index=(${currntIndex} + ${pageIndexNumber}),
+                param0=(${T(gn.c.proto.setting.function.CommonFunction).convertDateFormat(startDate)}),
+                param1=(${T(gn.c.proto.setting.function.CommonFunction).convertDateFormat(endDate)}),
+                param2=(${searchWord})
+                )}"
+               class="next_end"
+               ><span>NI_SET_INDEX</span>
+            </a>
+            <a th:case="${T(gn.c.proto.setting.util.State).SET_LAST}" th:href="@{${url}(
+                page= ((${totalIndex} - 1) * ${pageIndexSize} + 1),
+                index=(${totalIndex}),
+                param0=(${T(gn.c.proto.setting.function.CommonFunction).convertDateFormat(startDate)}),
+                param1=(${T(gn.c.proto.setting.function.CommonFunction).convertDateFormat(endDate)}),
+                param2=(${searchWord})
+                )}"
+               class="next_end"
+               ><span>NI_SET_LAST</span>
+            </a>
+        </th:block>
+    </div>
+</th:block>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/Layout/etcPage}">
+<body style="overflow-x:hidden;">
+<th:block layout:fragment="css-section"></th:block>
+<th:block layout:fragment="js-section">
+    <script type="text/javascript" th:src="@{/js/publish/common.js}"></script>
+    <script type="text/javascript" th:src="@{/js/common/common.js}"></script>
+    <script type="text/javascript" th:src="@{/js/common/commonPage.js}"></script>
+
+    <script type="text/javascript" th:src="@{/js/content/main/nav1/sub1/ViewEtcEventListener.js}"></script>
+    <script type="text/javascript" th:src="@{/js/content/main/nav1/sub1/ViewEtcOnLoad.js}"></script>
+
+</th:block>
+
+<th:block layout:fragment="header-section">
+
+</th:block>
+<th:block layout:fragment="nav-section">
+
+</th:block>
+
+<th:block layout:fragment="content-section">
+    <div id="contents">
+        <h3 th:text="#{MAIN.NAV0.SUB0.ETC.LIST.TEXT}"></h3>
+        <div class="box" style="margin-bottom: 10px;">
+            <div class="box_wrap" style="padding: 5px 20px;">
+                <div class="bbs_search">
+                    <form>
+                        <fieldset>
+                            <table>
+                                <colgroup>
+                                    <col style="width:30%;">
+                                    <col style="width:70%;">
+                                </colgroup>
+                                <tbody>
+                                <tr >
+                                    <th scope="row" th:text="#{PAGE.SEARCH}" style="padding-left: 0px;padding: 0;text-align: center;"></th>
+                                    <td>
+                                        <label for="bbs_search_text" class="skip">검색어 입력</label>
+                                        <!--/*@thymesVar id="pagination" type="gn.c.proto.setting.util.Pagination"*/-->
+                                        <input type="text" id="bbs_search_text" class="input_text" placeholder="검색어를 입력하세요." style="min-width: 210px"
+                                               th:value="${#strings.toString(pagination.getParam().get('searchWord')) == ''? '':#strings.toString(pagination.getParam().get('searchWord'))}"
+                                        >
+                                        <button type="button" class="submit">조회</button>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </fieldset>
+                    </form>
+                </div>
+                <!-- //bbs_search -->
+            </div>
+        </div>
+        <div class="box" style="margin-bottom: 5px">
+            <div class="box_wrap">
+                <table class="bbs_table list">
+                    <colgroup>
+                        <col style="width:15%;">
+                        <col>
+                        <col style="width:40%;">
+                    </colgroup>
+                    <thead style="border-radius: 20px">
+                    <tr>
+                        <th scope="col" th:text="#{PAGE.TABLE.ETC.COL0}"></th>
+                        <th scope="col" th:text="#{PAGE.TABLE.ETC.COL1}"></th>
+                        <th scope="col" th:text="#{PAGE.TABLE.ETC.COL2}"></th>
+                    </tr>
+                    </thead>
+                    <tbody th:if="!${#lists.isEmpty(nav1sub1)}">
+                    <tr th:each="n0s0,index: ${nav1sub1}" th:id="Report_tr_+${n0s0.SYS_CODE}">
+                        <td >
+                            <span th:text="${index.count}"></span>
+                        </td>
+                        <td class="subject">
+                            <a th:id="Report_tr_col2_+${n0s0.SYS_CODE}" href="#" >
+                                <span th:text="${n0s0.SYS_CODE}"></span>
+                            </a>
+                        </td>
+                        <td class="subject">
+                            <a th:id="Report_tr_col2_+${n0s0.SYS_NM}" href="#" >
+                                <span th:text="${n0s0.SYS_NM}"></span>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tbody th:unless="!${#lists.isEmpty(nav1sub1)}">
+                    <td colspan="6" class="empty"> 등록된 내용이 없습니다.</td>
+                    </tbody>
+                </table>
+                <!-- paging -->
+                <!--/*@thymesVar id="ymlConf" type="gn.c.proto.setting.conf.yml.YmlConf"*/-->
+                <!--/*@thymesVar id="pagination" type="gn.c.proto.setting.util.Pagination"*/-->
+                <th:block th:replace="/content/main/nav1/sub1/pagination :: pagination-section(
+                           ${pagination.prevIndexPage},${pagination.prevPage},
+                          ${pagination.currentIndex},${pagination.currentPage},
+                          ${pagination.startPage},${pagination.endPage},
+                          ${pagination.nextIndexPage},${pagination.nextPage},
+                          ${pagination.totalIndex},${pagination.pageIndexSize},
+                          ${pagination.pageIndexNumber},
+                          ${pagination.getParam().get('startDate')},
+                          ${pagination.getParam().get('endDate')},
+                          ${#strings.toString(pagination.getParam().get('searchWord')) == ''? '':#strings.toString(pagination.getParam().get('searchWord'))},
+                          'viewSYS'
+                          )">
+                </th:block>
+                <!-- //paging -->
+            </div>
+        </div>
+    </div>
+</th:block>
+</body>
+
+</html>

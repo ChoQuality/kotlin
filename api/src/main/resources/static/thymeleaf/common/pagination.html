@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<pagination th:fragment="pagination-section(getPrevIndexPage,getPrevPage,
+                                          getCurrntIndex,getCurrentPage,
+                                          getStartPage,getEndPage,
+                                          getNextIndexPage,getNextPage,
+                                          getTotalIndex,getPageindexSize,
+                                          getPageIndexNumber,
+                                          getSearchType,getSearchKeyword,
+                                          getUrl)">
+    <div class="text-center">
+
+        <span th:switch="${getPrevIndexPage}">
+            <a th:case="${T(gn.c.proto.setting.util.State).NOT_SET}" class="first">
+                <span class="sr-only">NOT_SET</span>
+            </a>
+            <a th:case="${T(gn.c.proto.setting.util.State).SET_INDEX}" th:href="@{${getUrl}(
+            page= ( ${getStartPage} - (${getPageindexSize} * ${getPageIndexNumber}) ),
+            index=(${getCurrntIndex} - ${getPageIndexNumber}),
+            searchType=(${getSearchType}),
+            searchKeyword=(${getSearchKeyword})
+            )}"
+               class="first"><span class="sr-only">SET_INDEX</span>
+            </a>
+            <a th:case="${T(gn.c.proto.setting.util.State).SET_FIRST}" th:href="@{${getUrl}(
+            page=(1),
+            index=(1),
+            searchType=(${getSearchType}),
+            searchKeyword=(${getSearchKeyword})
+             )}"
+               class="first"><span class="sr-only">SET_FIRST</span>
+            </a>
+        </span>
+
+
+        <span th:switch="${getPrevPage}">
+            <a th:case="${T(gn.c.proto.setting.util.State).NOT_SET}" class="prev">
+                <span class="sr-only">NOT_SET</span>
+            </a>
+            <a th:case="${T(gn.c.proto.setting.util.State).SET_PAGE}" th:href="@{${getUrl}(
+                page = (${getCurrentPage} - 1),
+                index=${getCurrntIndex},
+                searchType=(${getSearchType}),
+                searchKeyword=(${getSearchKeyword})
+                 )}"
+               class="prev"><span class="sr-only">SET_INDEX</span>
+            </a>
+            <a th:case="${T(gn.c.proto.setting.util.State).SET_INDEX}" th:href="@{${getUrl}(
+                page = (${getCurrentPage} - 1),
+                index=(${getCurrntIndex} -1 ),
+                searchType=(${getSearchType}),
+                searchKeyword=(${getSearchKeyword})
+                 )}"
+               class="prev"><span class="sr-only">SET_PAGE</span>
+            </a>
+        </span>
+
+
+            <th:block th:if="${getEndPage > 0}" th:each="num : ${#numbers.sequence(getStartPage, getEndPage)}">
+                <a  th:href="@{${getUrl}(
+                page = ${num},
+                index=${getCurrntIndex},
+                searchType=(${getSearchType}),
+                searchKeyword=(${getSearchKeyword})
+                )}">
+                    <span th:text="${''+ num + ''}" th:id="'seq'+${''+ num + ''}"/>
+                </a>
+            </th:block>
+            <th:block th:unless="${getEndPage > 0}" th:each="num : ${#numbers.sequence(getStartPage, getStartPage)}">
+                <a  th:href="@{${getUrl}(
+                page = ${num},
+                index=${getCurrntIndex},
+                searchType=(${getSearchType}),
+                searchKeyword=(${getSearchKeyword})
+                )}">
+                    <span th:text="${''+ num + ''}" th:id="'seq'+${''+ num + ''}"/>
+                </a>
+            </th:block>
+
+
+
+        <span th:switch="${getNextPage}">
+            <a th:case="${T(gn.c.proto.setting.util.State).NOT_SET}" class="next">
+                <span class="sr-only">NOT_SET</span>
+            </a>
+            <a th:case="${T(gn.c.proto.setting.util.State).SET_PAGE}" th:href="@{${getUrl}(
+                page = (${getCurrentPage} + 1) ,
+                index=${getCurrntIndex},
+                searchType=(${getSearchType}),
+                searchKeyword=(${getSearchKeyword})
+            )}"
+               class="next"><span class="sr-only">SET_PAGE</span>
+            </a>
+            <a th:case="${T(gn.c.proto.setting.util.State).SET_INDEX}" th:href="@{${getUrl}(
+                page = (${getCurrentPage} + 1),
+                index=${getCurrntIndex} + 1,
+                searchType=(${getSearchType}),
+                searchKeyword=(${getSearchKeyword})
+            )}"
+               class="next"><span class="sr-only">SET_INDEX</span>
+            </a>
+        </span>
+
+        <span th:switch="${getNextIndexPage}">
+            <a th:case="${T(gn.c.proto.setting.util.State).NOT_SET}" class="last">
+                <span class="sr-only">NOT_SET</span>
+            </a>
+            <a th:case="${T(gn.c.proto.setting.util.State).SET_INDEX}" th:href="@{${getUrl}(
+                page= ( ${getStartPage} + (${getPageindexSize} * ${getPageIndexNumber}) ),
+                index=(${getCurrntIndex} + ${getPageIndexNumber}),
+                searchType=(${getSearchType}),
+                searchKeyword=(${getSearchKeyword})
+                )}"
+               class="last"><span class="sr-only">SET_INDEX</span>
+            </a>
+            <a th:case="${T(gn.c.proto.setting.util.State).SET_LAST}" th:href="@{${getUrl}(
+                page= ((${getTotalIndex} - 1) * ${getPageindexSize} + 1),
+                index=(${getTotalIndex}),
+                searchType=(${getSearchType}),
+                searchKeyword=(${getSearchKeyword})
+                )}"
+               class="last"><span class="sr-only">SET_LAST</span>
+            </a>
+        </span>
+
+    </div>
+</pagination>

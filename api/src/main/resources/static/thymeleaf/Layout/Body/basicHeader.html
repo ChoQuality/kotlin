@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<th:block th:fragment="header-section(
+            menuName
+)">
+
+    <div class="wrap">
+        <h1 class="logo">
+            <a href="javascript:void(0)"><img style="margin-bottom: 10px;" src="/images/common/logo.png" alt="한국수력원자력 로고">
+                <h2 style="text-align: center;  font-family:'Malgun Gothic';">
+                    알림톡 통계화면
+                </h2>
+            </a>
+        </h1>
+
+        <div class="top_box">
+            <h2 class="skip">사용자 안내</h2>
+            <ul class="clearfix">
+                <li>
+                    <strong class="title">최종접속시간:</strong>
+                    <!--/*@thymesVar id="CustomUserDetail" type="gn.c.proto.setting.conf.security.custom.CustomUserDetail"*/-->
+                    <span class="cont" th:text="${CustomUserDetail.getCustomMember().getMemberInfo().getLastAccess() == null ? '-':CustomUserDetail.getCustomMember().getMemberInfo().getLastAccess()}"></span>
+                </li>
+                <li>
+                    <!--/*@thymesVar id="CustomUserDetail" type="gn.c.proto.setting.conf.security.custom.CustomUserDetail"*/-->
+                    <strong class="name" th:text="${CustomUserDetail.getCustomMember().getMemberInfo().getUsername()}"></strong>
+                </li>
+            </ul>
+            <form style="display:inline" method="post" th:action="@{/logout}">
+                <button class="btn_logout">로그아웃</button>
+            </form>
+        </div>
+        <!-- //top_box -->
+
+        <nav id="lnb_box">
+            <h2 class="skip">주메뉴</h2>
+            <div class="lnb_select marker-subject">
+                <button type="button" class="open" title="주메뉴를 선택하세요." th:text="${menuName}"></button>
+                <div class="contents_box">
+                    <ul><!-- 현재 선택된 메뉴에 클래스 on 추가 -->
+                        <th:block th:if="${CustomUserDetail.getCustomMember().getMemberInfo().getRoles().get(0).getAuthority().equals(ymlConf.getSecurity().getAuthority0())}">
+                            <li><button type="button" th:text="#{MAIN.NAV0.TEXT}"></button></li>
+                            <li><button type="button" th:text="#{MAIN.NAV1.TEXT}"></button></li>
+                        </th:block>
+                        <li><button type="button" th:text="#{MAIN.NAV2.TEXT}"></button></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="lnb">
+
+                <th:block th:switch="${menuName}">
+                    <th:block th:case="#{MAIN.NAV0.TEXT}">
+                        <ul class="clearfix marker-menu"><!-- 현재 선택된 메뉴에 클래스 on 추가 -->
+                            <th:block th:if="${CustomUserDetail.getCustomMember().getMemberInfo().getRoles().get(0).getAuthority().equals(ymlConf.getSecurity().getAuthority0())}">
+                                <li class="depth1"><a href="javascript:void(0)" th:text="#{MAIN.NAV0.TEXT}"></a></li>
+                                <li class="depth1"><a href="javascript:void(0)" th:text="#{MAIN.NAV1.TEXT}"></a></li>
+                            </th:block>
+
+                            <li class="depth1"><a href="javascript:void(0)" th:text="#{MAIN.NAV2.TEXT}"></a></li>
+                        </ul>
+                    </th:block>
+                    <th:block th:case="#{MAIN.NAV1.TEXT}">
+                        <ul class="clearfix marker-menu"><!-- 현재 선택된 메뉴에 클래스 on 추가 -->
+                            <th:block th:if="${CustomUserDetail.getCustomMember().getMemberInfo().getRoles().get(0).getAuthority().equals(ymlConf.getSecurity().getAuthority0())}">
+                                <li class="depth1"><a href="javascript:void(0)" th:text="#{MAIN.NAV0.TEXT}"></a></li>
+                                <li class="depth1"><a href="javascript:void(0)" th:text="#{MAIN.NAV1.TEXT}"></a></li>
+                            </th:block>
+                            <li class="depth1"><a href="javascript:void(0)" th:text="#{MAIN.NAV2.TEXT}"></a></li>
+                        </ul>
+                    </th:block>
+                    <th:block th:case="#{MAIN.NAV2.TEXT}">
+                        <ul class="clearfix marker-menu"><!-- 현재 선택된 메뉴에 클래스 on 추가 -->
+                            <th:block th:if="${CustomUserDetail.getCustomMember().getMemberInfo().getRoles().get(0).getAuthority().equals(ymlConf.getSecurity().getAuthority0())}">
+                                <li class="depth1"><a href="javascript:void(0)" th:text="#{MAIN.NAV0.TEXT}"></a></li>
+                                <li class="depth1"><a href="javascript:void(0)" th:text="#{MAIN.NAV1.TEXT}"></a></li>
+                            </th:block>
+                            <li class="depth1"><a href="javascript:void(0)" th:text="#{MAIN.NAV2.TEXT}"></a></li>
+                        </ul>
+                    </th:block>
+                </th:block>
+
+
+            </div>
+        </nav>
+        <!-- //lnb -->
+    </div>
+</th:block>
+</html>
+
+

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<th:block th:fragment="nav-section(
+            navTitle
+)">
+
+    <nav class="side_menu">
+        <h2 class="skip">서브메뉴</h2>
+        <div class="side_title">
+            <span th:text="${navTitle}"></span>
+        </div>
+        <!--/*@thymesVar id="CustomUserDetail" type="gn.c.proto.setting.conf.security.custom.CustomUserDetail"*/-->
+        <!--/*@thymesVar id="ymlConf" type="gn.c.proto.setting.conf.yml.YmlConf"*/-->
+        <th:block th:switch="${navTitle}">
+                <th:block th:case="#{MAIN.NAV0.TEXT}">
+                    <ul class="dep1 marker-nav">
+                        <li>
+                            <a href="javascript:void(0)" class="child_dep" th:text="#{MAIN.NAV0.SUB0.TEXT}">
+                            </a>
+                            <ul class="dep2 current nav-hidden">
+                                <li>
+                                    <a href="javascript:void(0)" th:text="#{MAIN.NAV0.SUB0.TEXT}"></a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </th:block>
+                <th:block th:case="#{MAIN.NAV1.TEXT}">
+                    <!--<ul class="dep1 marker-nav">
+                        <li>
+                            <a href="javascript:void(0)" class="child_dep" th:text="#{MAIN.NAV1.SUB0.TEXT}">
+                            </a>
+                            <ul class="dep2 current nav-hidden">
+                                <li>
+                                    <a href="javascript:void(0)" class="child_dep on2" th:text="#{MAIN.NAV1.SUB0.TEXT}">
+                                    </a>
+                                    <ul class="dep3 current">
+                                        <li>
+                                            <a href="javascript:void(0)" th:text="#{MAIN.NAV1.SUB0.A0.TEXT}"></a>
+                                        </li>
+                                        &lt;!&ndash;요청에 따른 아래 구문 주석
+                                        <li>
+                                            <a href="javascript:void(0)" th:text="#{MAIN.NAV1.SUB0.A1.TEXT}"></a>
+                                        </li>&ndash;&gt;
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>-->
+                    <ul class="dep1 marker-nav">
+                        <li>
+                            <a href="javascript:void(0)" class="child_dep" th:text="#{MAIN.NAV1.SUB0.TEXT}">
+                            </a>
+                            <ul class="dep2 current nav-hidden">
+                                <li>
+                                    <a href="javascript:void(0)" th:text="#{MAIN.NAV1.SUB0.TEXT}"></a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </th:block>
+                <th:block th:case="#{MAIN.NAV2.TEXT}">
+                    <ul class="dep1 marker-nav">
+                        <li>
+                            <a href="javascript:void(0)" class="child_dep" th:text="#{MAIN.NAV2.SUB0.TEXT}">
+                            </a>
+                            <ul class="dep2 current nav-hidden">
+                                <li>
+                                    <a href="javascript:void(0)" th:text="#{MAIN.NAV2.SUB0.TEXT}"></a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </th:block>
+            </th:block>
+
+    </nav>
+
+</th:block>
+</html>
+
+

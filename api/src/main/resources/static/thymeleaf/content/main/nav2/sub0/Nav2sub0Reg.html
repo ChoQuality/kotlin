@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/Layout/basicPage}">
+<th:block layout:fragment="css-section"></th:block>
+<th:block layout:fragment="js-section">
+    <script type="text/javascript" th:src="@{/js/publish/common.js}"></script>
+    <script type="text/javascript" th:src="@{/js/common/common.js}"></script>
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/common/commonHeader.js}"></script>
+    <script type="text/javascript" th:src="@{/js/common/commonPage.js}"></script>
+
+    <script charset="UTF-8" type="text/javascript" th:src="@{/js/content/main/EventListener.js}"></script>
+    <script type="text/javascript" th:src="@{/js/content/main/nav1/sub0/RegEventListener.js}"></script>
+    <script type="text/javascript" th:src="@{/js/content/main/nav1/sub0/RegOnLoad.js}"></script>
+
+</th:block>
+
+<th:block layout:fragment="header-section">
+    <th:block th:replace="/Layout/Body/basicHeader :: header-section(#{MAIN.NAV1.TEXT})"></th:block>
+</th:block>
+<th:block layout:fragment="nav-section">
+    <th:block th:replace="/Layout/Body/Nav/Nav :: nav-section(#{MAIN.NAV1.TEXT})"></th:block>
+</th:block>
+
+<th:block layout:fragment="content-section">
+    <div id="contents">
+        <h3 th:text="#{MAIN.NAV0.SUB0.ETC.REG.TEXT}"></h3>
+        <div class="box">
+            <div class="box_wrap">
+                <form name="bbsNttForm" id="" method="post">
+                    <fieldset>
+                        <table class="bbs_table write">
+                            <colgroup>
+                                <col style="width:20%;">
+                                <col style="width:80%;">
+                            </colgroup>
+                            <tbody>
+
+                            <tr>
+                                <th scope="row"><label for="" th:text="#{MAIN.NAV0.SUB0.ETC.REG.NAME.TEXT}"></label></th><!-- //필수 항목이 아닐 경우 클래스 y 삭제 -->
+                                <td>
+                                    <input type="text" name="" id="" onkeyup="this.value=this.value.replace(/[^a-zA-Z-_0-9]/g,'');">
+                                    <button type="button" class="bbs_btn type06">등록 업무명</button>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row"><label for="" th:text="#{MAIN.NAV0.SUB0.ETC.REG.CODE.TEXT}"></label></th><!-- //필수 항목이 아닐 경우 클래스 y 삭제 -->
+                                <td>
+                                    <input type="text" name="" id="" onkeyup="this.value=this.value.replace(/[^a-zA-Z-_0-9]/g,'');">
+                                    <button type="button" class="bbs_btn type06">코드 중복체크</button>
+                                    <span class="bbs_explan em_red off">이미 사용 중인 코드입니다.</span><!-- 사용 가능한 아이디일 경우 클래스 em_green 추가, 사용중일 경우 클래스 em_red 추가 -->
+                                    <span class="bbs_explan em_green off">사용 가능한 코드입니다.</span><!-- 사용 가능한 아이디일 경우 클래스 em_green 추가, 사용중일 경우 클래스 em_red 추가 -->
+                                    <span class="bbs_explan em_blue off">중복 확인을 해주세요.</span><!-- 사용 가능한 아이디일 경우 클래스 em_green 추가, 사용중일 경우 클래스 em_red 추가 -->
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row"><label for="" th:text="#{MAIN.NAV0.SUB0.ETC.REG.IP.TEXT}"></label></th><!-- //필수 항목이 아닐 경우 클래스 y 삭제 -->
+                                <td>
+                                    <input type="text" name="" id="ipv4_input" maxlength='15' onkeyup="this.value=this.value.replace(/[^0-9.]/g,'');" placeholder="ip v4 형식으로 입력해 주세요">
+                                </td>
+                            </tr>
+
+
+                            </tbody>
+                        </table>
+                        <!-- //bbs_table write -->
+
+                        <div class="layer-footer">
+                            <div class="layer-button_right">
+                                <a href="#" class="marker-reg layer-button list">목록</a>
+                                <a href="#" class="marker-reg layer-button reg update">등록</a>
+                            </div>
+                        </div>
+                        <!-- //bbs_btn_wrap -->
+
+                    </fieldset>
+                </form>
+
+            </div>
+        </div>
+        <!-- //box -->
+    </div>
+</th:block>
+</html>
