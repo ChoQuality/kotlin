@@ -27,7 +27,6 @@ allprojects {
             println("project-dir : " + project.projectDir)
 
             var dir_list : kotlin.collections.ArrayList<File> = ArrayList<File>()
-
             dir_list.add(project.projectDir)
             dir_list.add(File(project.projectDir,"buildDir"))
             dir_list.add(File(project.projectDir,"buildDir/dev"))
@@ -42,11 +41,10 @@ allprojects {
             dir_list.add(File(project.projectDir,"src/test/kotlin"))
             dir_list.add(File(project.projectDir,"src/test/resources"))
 
-            dir_list.forEach({ file->
-                if(!file.exists()){
-                    file.mkdir();
-                }
-            })
+            dir_list.forEach({
+                    file-> if(!file.exists()){
+                        file.mkdir();
+                    }})
             File(project.projectDir,"build.gradle.kts")
                 .writeText("//" +  project.name
                         + "\n" + "import org.jetbrains.kotlin.gradle.tasks.KotlinCompile" + "\n"
@@ -55,7 +53,6 @@ allprojects {
                         + "\n" + "tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {\n\tkotlinOptions {\n\t\tfreeCompilerArgs = listOf(\"-Xjsr305=strict\")\n\t\tjvmTarget = \"1.8\"\n     }\n}" + "\n"
                         + "\n" + "tasks.withType<Test> {\n\tuseJUnitPlatform()\n}" + "\n"
                 )
-
             File(project.projectDir.toString().plus("/libs"),"ReadMe.txt").writeText("// Library 추가")
         }
     }
