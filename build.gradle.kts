@@ -83,12 +83,13 @@ project(":server-core"){
     dependencies {
         implementation( fileTree("libs").include("*.jar"))
         implementation( project(":server-security"))
-        implementation( project(":server-log"))
+        implementation( project(":server-trace"))
         implementation( project(":server-service"))
+        implementation( project(":server-task"))
     }
 }
 
-project(":server-log"){
+project(":server-trace"){
     dependencies {
         implementation( fileTree("libs").include("*.jar"))
         implementation("com.madgag.spongycastle:prov:1.58.0.0")
@@ -102,6 +103,12 @@ project(":server-security"){
 }
 
 project(":server-service"){
+    dependencies {
+        implementation( fileTree("libs").include("*.jar"))
+    }
+}
+
+project(":server-task"){
     dependencies {
         implementation( fileTree("libs").include("*.jar"))
     }

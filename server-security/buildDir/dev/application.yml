@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: dev
+  config:
+    name: security
+    location: /
+    import:
+      - jwt.yml

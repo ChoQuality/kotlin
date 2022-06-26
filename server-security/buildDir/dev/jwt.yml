@@ -1,0 +1,27 @@
+jwt:
+  secret-key: "MDEyMzQ1Njc4OTAxMjM0NTAxMjM0NTY3ODkwMTIzNDU="
+  secret-password: "MDEyMzQ1Njc4OTAxMjM0NTAxMjM0NTY3ODkwMTIzNDU="
+  expire-time: "3155760000000"
+  header-param: "companyName"
+  header-value: "kotlin"
+  auth-header: "Authorization"
+  bearer-token: "Bearer "
+  content-header: "Content-Type"
+  content-value: "application/json;charset=utf-8"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

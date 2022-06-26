@@ -1,4 +1,4 @@
-package com.example.kotlin.security
+package com.example.kotlin
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
@@ -11,6 +11,7 @@ import org.springframework.security.authorization.AuthorizationManager
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.access.intercept.RequestAuthorizationContext
 import org.springframework.security.web.access.intercept.RequestMatcherDelegatingAuthorizationManager
@@ -37,7 +38,11 @@ class SecurityConfig(
     }
 
     @Bean
-    fun webAuthSecurityFilterChain(http: HttpSecurity,access : AuthorizationManager<RequestAuthorizationContext>): SecurityFilterChain{
+    fun webAuthSecurityFilterChain(http: HttpSecurity, access : AuthorizationManager<RequestAuthorizationContext>): SecurityFilterChain{
+
+        http.httpBasic()
+        http.csrf().disable()
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
         http.authorizeHttpRequests { auth ->
             auth

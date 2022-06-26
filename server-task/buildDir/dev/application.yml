@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    active: dev
+  config:
+    name: task
+    location: /
+    import:
+      - task.yml
+
