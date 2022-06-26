@@ -1,3 +1,5 @@
 rootProject.name = "kotlin"
-include("api")
-include("api-core")
+include("server-core")
+include("server-log")
+include("server-security")
+include("server-service")
