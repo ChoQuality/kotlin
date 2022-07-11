@@ -1,5 +1,5 @@
-task:
+job0:
   schedule-pool-size: 1
   schedule-thread-name-prefix: 'vp 스켸줄러 -'
-  cronJob0: '0 10 * * * *'
+  schedule-time: '0 * * * * *'
   prefix-tablename: 'log_'

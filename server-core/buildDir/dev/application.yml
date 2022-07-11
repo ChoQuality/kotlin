@@ -21,6 +21,7 @@ spring:
       - push.yml
       - jwt.yml
       - param.yml
+      - job0.yml
   jpa:
     open-in-view: true
 
